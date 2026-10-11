@@ -184,7 +184,31 @@ export const mineScenario: ScenarioConfig = {
     },
   },
 
-  telemetry: [
+  baselineTelemetry: [
+    {
+      label: 'Slope Displacement Rate',
+      value: '0.4 mm/h',
+      percentage: 8,
+      status: 'nominal',
+      iconType: 'displacement',
+    },
+    {
+      label: 'Pore Water Pressure (VWP-04)',
+      value: '62 kPa',
+      percentage: 16,
+      status: 'nominal',
+      iconType: 'piezometer',
+    },
+    {
+      label: 'Blast Peak Vibration (PPV)',
+      value: '1.2 mm/s',
+      percentage: 12,
+      status: 'nominal',
+      iconType: 'vibration',
+    },
+  ],
+
+  crisisTelemetry: [
     {
       label: 'Slope Displacement Rate',
       value: '18.4 mm/h',
@@ -204,6 +228,30 @@ export const mineScenario: ScenarioConfig = {
       value: '14.2 mm/s',
       percentage: 72,
       status: 'elevated',
+      iconType: 'vibration',
+    },
+  ],
+
+  telemetry: [
+    {
+      label: 'Slope Displacement Rate',
+      value: '0.4 mm/h',
+      percentage: 8,
+      status: 'nominal',
+      iconType: 'displacement',
+    },
+    {
+      label: 'Pore Water Pressure (VWP-04)',
+      value: '62 kPa',
+      percentage: 16,
+      status: 'nominal',
+      iconType: 'piezometer',
+    },
+    {
+      label: 'Blast Peak Vibration (PPV)',
+      value: '1.2 mm/s',
+      percentage: 12,
+      status: 'nominal',
       iconType: 'vibration',
     },
   ],

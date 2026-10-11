@@ -184,7 +184,31 @@ export const constructionScenario: ScenarioConfig = {
     },
   },
 
-  telemetry: [
+  baselineTelemetry: [
+    {
+      label: 'Tunnel Hydrostatic Pressure',
+      value: '1.8 bar',
+      percentage: 12,
+      status: 'nominal',
+      iconType: 'hydrostatic',
+    },
+    {
+      label: 'Surface Ground Settlement',
+      value: '1.2 mm',
+      percentage: 8,
+      status: 'nominal',
+      iconType: 'displacement',
+    },
+    {
+      label: 'Subterranean Oxygen Level',
+      value: '20.9% O₂',
+      percentage: 10,
+      status: 'nominal',
+      iconType: 'structural',
+    },
+  ],
+
+  crisisTelemetry: [
     {
       label: 'Tunnel Hydrostatic Pressure',
       value: '18.6 bar',
@@ -204,6 +228,30 @@ export const constructionScenario: ScenarioConfig = {
       value: '19.4% O₂',
       percentage: 65,
       status: 'elevated',
+      iconType: 'structural',
+    },
+  ],
+
+  telemetry: [
+    {
+      label: 'Tunnel Hydrostatic Pressure',
+      value: '1.8 bar',
+      percentage: 12,
+      status: 'nominal',
+      iconType: 'hydrostatic',
+    },
+    {
+      label: 'Surface Ground Settlement',
+      value: '1.2 mm',
+      percentage: 8,
+      status: 'nominal',
+      iconType: 'displacement',
+    },
+    {
+      label: 'Subterranean Oxygen Level',
+      value: '20.9% O₂',
+      percentage: 10,
+      status: 'nominal',
       iconType: 'structural',
     },
   ],

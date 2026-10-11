@@ -71,10 +71,10 @@ export default function ImplementationPlanPanel() {
         {/* STEP 0: Telemetry */}
         {state.step === 0 && (
           <div className="flex flex-col gap-3 font-mono">
-            {activeScenario.telemetry.map((t, idx) => {
+            {(activeScenario.baselineTelemetry || activeScenario.telemetry).map((t, idx) => {
               const isAlert = t.status === 'elevated' || t.status === 'critical' || t.status === 'saturated';
-              const cardBg = isAlert ? 'bg-red-50/40 border-red-200/60' : 'bg-stone-50/80 border-stone-200/60';
-              const badgeBg = isAlert ? 'bg-red-100 text-red-700' : 'bg-stone-200/70 text-stone-600';
+              const cardBg = isAlert ? 'bg-red-50/40 border-red-200/60' : 'bg-emerald-50/40 border-emerald-200/60';
+              const badgeBg = isAlert ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-800 font-bold';
               const barColor = isAlert ? 'bg-red-600 animate-pulse' : 'bg-emerald-500';
               const strokeColor = isAlert ? '#dc2626' : '#10b981';
 

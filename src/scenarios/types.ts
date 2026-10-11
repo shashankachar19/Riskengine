@@ -223,6 +223,8 @@ export interface ScenarioConfig {
   location: LocationConfig;
   map: MapConfig;
 
+  baselineTelemetry?: TelemetryReading[];
+  crisisTelemetry?: TelemetryReading[];
   telemetry: TelemetryReading[];
   resourcePanel: ResourcePanelItem[];
   resources: Resource[];

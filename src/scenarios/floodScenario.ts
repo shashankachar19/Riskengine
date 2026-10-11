@@ -184,7 +184,31 @@ export const floodScenario: ScenarioConfig = {
     },
   },
 
-  telemetry: [
+  baselineTelemetry: [
+    {
+      label: 'River Discharge Rate',
+      value: '140 m³/s',
+      percentage: 14,
+      status: 'nominal',
+      iconType: 'discharge',
+    },
+    {
+      label: 'Reservoir Crest Level',
+      value: '1,418.2 m ASL',
+      percentage: 22,
+      status: 'nominal',
+      iconType: 'water_level',
+    },
+    {
+      label: 'Surge Wave Velocity',
+      value: '1.1 m/s',
+      percentage: 10,
+      status: 'nominal',
+      iconType: 'displacement',
+    },
+  ],
+
+  crisisTelemetry: [
     {
       label: 'River Discharge Rate',
       value: '4,820 m³/s',
@@ -204,6 +228,30 @@ export const floodScenario: ScenarioConfig = {
       value: '11.8 m/s',
       percentage: 84,
       status: 'critical',
+      iconType: 'displacement',
+    },
+  ],
+
+  telemetry: [
+    {
+      label: 'River Discharge Rate',
+      value: '140 m³/s',
+      percentage: 14,
+      status: 'nominal',
+      iconType: 'discharge',
+    },
+    {
+      label: 'Reservoir Crest Level',
+      value: '1,418.2 m ASL',
+      percentage: 22,
+      status: 'nominal',
+      iconType: 'water_level',
+    },
+    {
+      label: 'Surge Wave Velocity',
+      value: '1.1 m/s',
+      percentage: 10,
+      status: 'nominal',
       iconType: 'displacement',
     },
   ],

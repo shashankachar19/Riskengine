@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSimulation } from '../store/SimContext';
 import { getMarkerSvgHtml } from './icons/SvgIcons';
-import MapTelemetryHUD from './MapTelemetryHUD';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+
+function timeAgo(minutesAgo: number): string {
+  const d = new Date(Date.now() - minutesAgo * 60000);
+  return d.toLocaleTimeString('en-GB', { hour12: false });
+}
 
 // Helper: Interpolate route for smooth animation
 function interpolateRoute(route: [number, number][], stepsPerSegment = 25): [number, number][] {
@@ -487,8 +491,33 @@ export default function GISMap() {
         SYS.COORD // {activeScenario.location.lat.toFixed(4)}°N  {activeScenario.location.lng.toFixed(4)}°E
       </div>
 
-      {/* Live Tactical Sensor Telemetry HUD */}
-      <MapTelemetryHUD />
+      {/* Live Sensor Feed: ONLY appears when incident is active (step >= 1), non-obstructive bottom-left */}
+      {state.step >= 1 && !state.isProcessing && activeScenario.map.sensorPanel && (
+        <div className="absolute bottom-24 left-5 w-64 bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-stone-200 z-[1000] pointer-events-none animate-in slide-in-from-left-4 fade-in duration-500 overflow-hidden select-none">
+          <div className="px-4 py-2.5 bg-red-50 border-b border-red-100 flex items-center justify-between">
+            <span className="text-xs font-black tracking-widest text-red-700 uppercase">📡 {activeScenario.map.sensorPanel.title}</span>
+            <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.6)]" />
+          </div>
+          <div className="px-4 py-3 font-sans">
+            <div className="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-2.5">{activeScenario.map.sensorPanel.sensorId}</div>
+            <div className="space-y-2">
+              {activeScenario.map.sensorPanel.readings.map((r, i) => (
+                <div key={i} className="flex items-center justify-between">
+                  <span className="text-xs font-mono font-bold text-stone-500">{timeAgo(r.offsetMin)}</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-16 bg-stone-100 rounded-full h-1.5"><div className={`${r.color} h-1.5 rounded-full`} style={{width: r.pct}} /></div>
+                    <span className={`text-xs font-black ${r.textColor} w-12 text-right`}>{r.value}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 pt-2.5 border-t border-stone-100 text-[11px] font-bold text-red-600 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse shrink-0" />
+              {activeScenario.map.sensorPanel.footer}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="absolute top-4 right-4 text-xs font-bold tracking-widest text-stone-700 bg-white/90 px-4 py-2 rounded-xl shadow-lg z-[1000] backdrop-blur-sm border border-white/50 pointer-events-none select-none">
         {activeScenario.badge} // {activeScenario.location.district.toUpperCase()}
