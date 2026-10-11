@@ -138,15 +138,15 @@ export default function ImpactReportModal() {
               <RiskEngineLogo size={32} />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-black tracking-tight text-stone-900 uppercase">
+              <div className="flex items-center gap-2.5">
+                <h2 className="text-2xl font-black tracking-tight text-stone-900 uppercase">
                   Incident Impact Report
                 </h2>
-                <span className="text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full uppercase">
+                <span className="text-xs font-mono font-bold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full uppercase">
                   {activeScenario.badge}
                 </span>
               </div>
-              <p className="text-xs text-stone-500 font-mono tracking-wide mt-1">
+              <p className="text-sm text-stone-500 font-mono tracking-wide mt-1">
                 RiskEngine // {activeScenario.name} ({activeScenario.location.district})
               </p>
             </div>
@@ -156,9 +156,9 @@ export default function ImpactReportModal() {
           <div className="flex items-center gap-2.5">
             <button
               onClick={handleDownloadPDF}
-              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-mono font-bold tracking-wider uppercase rounded-xl flex items-center gap-2 transition-colors shadow-sm"
+              className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-mono font-black tracking-wider uppercase rounded-xl flex items-center gap-2 transition-colors shadow-sm"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-4 h-4" />
               <span>Print Audit PDF</span>
             </button>
 
@@ -176,44 +176,44 @@ export default function ImpactReportModal() {
           {/* Key Stat Cards */}
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-emerald-50/70 border border-emerald-200 p-5 rounded-2xl text-center">
-              <span className="text-[10px] font-mono font-bold text-emerald-700 uppercase tracking-widest block mb-1">
+              <span className="text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest block mb-1">
                 Coordination Cycle
               </span>
-              <div className="text-3xl font-mono font-black text-emerald-800">{coordCycleTime}</div>
-              <span className="text-[11px] text-emerald-600 font-medium mt-1 block">Autonomous multi-agent eval</span>
+              <div className="text-4xl font-mono font-black text-emerald-800">{coordCycleTime}</div>
+              <span className="text-xs text-emerald-700 font-bold mt-1 block">Autonomous multi-agent eval</span>
             </div>
 
             <div className="bg-blue-50/70 border border-blue-200 p-5 rounded-2xl text-center">
-              <span className="text-[10px] font-mono font-bold text-blue-700 uppercase tracking-widest block mb-1">
+              <span className="text-xs font-mono font-bold text-blue-700 uppercase tracking-widest block mb-1">
                 Dynamic Replanning
               </span>
-              <div className="text-3xl font-mono font-black text-blue-800">{replanningTime}</div>
-              <span className="text-[11px] text-blue-600 font-medium mt-1 block">Alternate route calculated</span>
+              <div className="text-4xl font-mono font-black text-blue-800">{replanningTime}</div>
+              <span className="text-xs text-blue-700 font-bold mt-1 block">Alternate route calculated</span>
             </div>
 
             <div className="bg-stone-50 border border-stone-200 p-5 rounded-2xl text-center">
-              <span className="text-[10px] font-mono font-bold text-stone-600 uppercase tracking-widest block mb-1">
+              <span className="text-xs font-mono font-bold text-stone-600 uppercase tracking-widest block mb-1">
                 Personnel Accountability
               </span>
-              <div className="text-3xl font-mono font-black text-stone-900">{totalWorkers}/{totalWorkers}</div>
-              <span className="text-[11px] text-emerald-600 font-bold mt-1 block">100% Safe (0 Casualties)</span>
+              <div className="text-4xl font-mono font-black text-stone-900">{totalWorkers}/{totalWorkers}</div>
+              <span className="text-xs text-emerald-700 font-bold mt-1 block">100% Safe (0 Casualties)</span>
             </div>
           </div>
 
           {/* Detailed Parameter Table */}
           <div className="border border-stone-200 rounded-2xl overflow-hidden">
-            <div className="bg-stone-50 px-5 py-3 border-b border-stone-200 text-xs font-mono font-bold text-stone-500 uppercase tracking-wider flex items-center justify-between">
+            <div className="bg-stone-50 px-6 py-3.5 border-b border-stone-200 text-xs font-mono font-black text-stone-600 uppercase tracking-wider flex items-center justify-between">
               <span>Metric Analysis</span>
               <span>Observed Simulation Result</span>
             </div>
             <div className="divide-y divide-stone-100">
               {metrics.map((m, idx) => (
-                <div key={idx} className="px-5 py-3.5 flex items-center justify-between hover:bg-stone-50/60 transition-colors">
+                <div key={idx} className="px-6 py-4 flex items-center justify-between hover:bg-stone-50/60 transition-colors">
                   <div>
-                    <div className="text-xs font-bold text-stone-800">{m.label}</div>
-                    <div className="text-[11px] text-stone-400 font-mono">{m.simType}</div>
+                    <div className="text-sm font-bold text-stone-900">{m.label}</div>
+                    <div className="text-xs text-stone-400 font-mono mt-0.5">{m.simType}</div>
                   </div>
-                  <div className={`text-xs font-mono font-black ${m.resultColor}`}>
+                  <div className={`text-sm font-mono font-black ${m.resultColor}`}>
                     {m.result}
                   </div>
                 </div>

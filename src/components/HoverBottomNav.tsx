@@ -46,42 +46,42 @@ export default function HoverBottomNav() {
   }
 
   return (
-    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-4 px-5 py-3 rounded-2xl border border-stone-200/90 backdrop-blur-xl bg-white/95 shadow-[0_16px_40px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.16)] transition-all duration-300 w-[90%] max-w-3xl select-none">
+    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-4 px-6 py-3.5 rounded-2xl border border-stone-200/90 backdrop-blur-xl bg-white/95 shadow-[0_16px_40px_rgba(0,0,0,0.14)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.18)] transition-all duration-300 w-[92%] max-w-4xl select-none">
       <div className="flex items-center gap-3.5 flex-1 min-w-0">
-        <div className="shrink-0 p-2 rounded-xl bg-stone-50 border border-stone-100 shadow-sm">
+        <div className="shrink-0 p-2.5 rounded-xl bg-stone-50 border border-stone-100 shadow-sm">
           {icon}
         </div>
-        <div className={`font-sans text-xs tracking-wide truncate ${textClass}`}>
+        <div className={`font-sans text-sm md:text-base tracking-wide truncate ${textClass}`}>
           {state.isProcessing ? (state.processingMessage || 'AI Processing...') : currentStepConfig.navText}
         </div>
       </div>
 
       {state.isProcessing ? (
-        <div className="shrink-0 px-6 py-2 flex items-center justify-center">
+        <div className="shrink-0 px-8 py-2.5 flex items-center justify-center">
           <Loader className="w-5 h-5 text-emerald-600 animate-spin" />
         </div>
       ) : (
         <div className="relative group shrink-0">
           <button
             onClick={action}
-            className={`px-6 py-3 rounded-[1.25rem] font-mono text-[11px] tracking-widest font-black uppercase transition-all duration-200 hover:-translate-y-0.5 active:translate-y-[1px] ${buttonClass}`}
+            className={`px-7 py-3.5 rounded-[1.25rem] font-mono text-xs md:text-sm tracking-widest font-black uppercase transition-all duration-200 hover:-translate-y-0.5 active:translate-y-[1px] ${buttonClass}`}
           >
             {currentStepConfig.navButton}
           </button>
 
           {/* Explainer Hover Popup */}
           {currentStepConfig.explainerTitle && (
-            <div className="absolute bottom-full right-0 mb-4 w-80 bg-white/95 backdrop-blur-2xl p-5 rounded-[1.75rem] shadow-[0_30px_60px_rgba(0,0,0,0.18)] border border-stone-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0 cursor-default pointer-events-none font-sans z-[100]">
+            <div className="absolute bottom-full right-0 mb-4 w-88 bg-white/95 backdrop-blur-2xl p-5 rounded-[1.75rem] shadow-[0_30px_60px_rgba(0,0,0,0.18)] border border-stone-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0 cursor-default pointer-events-none font-sans z-[100]">
               <div className="absolute -bottom-2 right-8 w-4 h-4 bg-white border-b border-r border-stone-200 rotate-45" />
               <div className="relative z-10 flex items-start gap-3">
-                <div className="shrink-0 w-7 h-7 rounded-full bg-emerald-50 flex items-center justify-center">
-                  <Info className="w-3.5 h-3.5 text-emerald-600" />
+                <div className="shrink-0 w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center">
+                  <Info className="w-4 h-4 text-emerald-600" />
                 </div>
                 <div>
-                  <h4 className="text-[11px] font-black tracking-widest uppercase text-stone-900 mb-1.5">
+                  <h4 className="text-xs font-black tracking-widest uppercase text-stone-900 mb-1.5">
                     {currentStepConfig.explainerTitle}
                   </h4>
-                  <p className="text-xs text-stone-600 font-medium leading-relaxed">
+                  <p className="text-sm text-stone-700 font-medium leading-relaxed">
                     {currentStepConfig.explainerText}
                   </p>
                 </div>

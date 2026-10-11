@@ -43,11 +43,11 @@ function SlopeDisplacementPanel() {
   };
 
   return (
-    <div className="absolute bottom-28 left-4 w-[19rem] bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.18)] border border-stone-200/90 z-[1000] pointer-events-none animate-in slide-in-from-left-4 fade-in duration-500 overflow-hidden font-mono select-none">
+    <div className="absolute bottom-28 left-4 w-[21.5rem] bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.18)] border border-stone-200/90 z-[1000] pointer-events-none animate-in slide-in-from-left-4 fade-in duration-500 overflow-hidden font-mono select-none">
       {/* Header */}
-      <div className="px-4 py-2.5 bg-red-50/90 border-b border-red-100 flex items-center justify-between">
-        <span className="text-[11px] font-black tracking-widest text-red-700 uppercase flex items-center gap-1.5">
-          <span>📡</span>
+      <div className="px-4 py-3 bg-red-50/90 border-b border-red-100 flex items-center justify-between">
+        <span className="text-xs font-black tracking-widest text-red-700 uppercase flex items-center gap-2">
+          <span className="text-sm">📡</span>
           <span>{title}</span>
         </span>
         <span className="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.6)]" />
@@ -55,9 +55,9 @@ function SlopeDisplacementPanel() {
 
       {/* Body */}
       <div className="px-4 py-3.5 font-sans">
-        <div className="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-3 flex items-center justify-between">
+        <div className="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3 flex items-center justify-between">
           <span>{sensorId.toUpperCase()}</span>
-          <span className="text-[9px] font-mono text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 font-bold">
+          <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-black">
             SYNCED
           </span>
         </div>
@@ -65,20 +65,20 @@ function SlopeDisplacementPanel() {
         <div className="space-y-2.5">
           {readings.map((r, i) => (
             <div key={i} className="flex items-center justify-between text-xs">
-              <span className="font-mono font-bold text-stone-500 tracking-tight">
+              <span className="font-mono font-bold text-stone-600 tracking-tight text-xs">
                 {getRealisticTime(r.offsetMin ?? 0, i)}
               </span>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 {/* Visual Bar Gauge with clean background and border */}
-                <div className="w-20 bg-stone-100 rounded-full h-2 overflow-hidden border border-stone-200/60 p-[1px]">
+                <div className="w-24 bg-stone-100 rounded-full h-2.5 overflow-hidden border border-stone-200/60 p-[1px]">
                   <div
                     className={`${r.color} h-full rounded-full transition-all duration-500`}
                     style={{ width: r.pct }}
                   />
                 </div>
 
-                <span className={`font-mono font-black ${r.textColor} w-16 text-right`}>
+                <span className={`font-mono font-black ${r.textColor} w-20 text-right text-sm`}>
                   {r.value}
                 </span>
               </div>
@@ -87,7 +87,7 @@ function SlopeDisplacementPanel() {
         </div>
 
         {/* Footer Alert */}
-        <div className="mt-3.5 pt-2.5 border-t border-stone-100 text-[10px] font-black text-red-600 uppercase tracking-wider flex items-start gap-2 leading-snug">
+        <div className="mt-3.5 pt-2.5 border-t border-stone-100 text-xs font-black text-red-600 uppercase tracking-wider flex items-start gap-2 leading-snug">
           <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse shrink-0 mt-0.5" />
           <span>{footer.toUpperCase()}</span>
         </div>
@@ -574,7 +574,7 @@ export default function GISMap() {
       <div ref={mapRef} className="absolute inset-0 w-full h-full z-0 rounded-2xl" />
 
       {/* Top Overlays */}
-      <div className="absolute top-4 left-4 text-xs font-bold tracking-widest text-stone-700 bg-white/90 px-4 py-2 rounded-xl shadow-lg z-[1000] backdrop-blur-sm border border-white/50 pointer-events-none select-none">
+      <div className="absolute top-4 left-4 text-sm font-mono font-bold tracking-wider text-stone-800 bg-white/95 px-4 py-2 rounded-xl shadow-lg z-[1000] backdrop-blur-sm border border-white/60 pointer-events-none select-none">
         SYS.COORD // {activeScenario.location.lat.toFixed(4)}°N  {activeScenario.location.lng.toFixed(4)}°E
       </div>
 
@@ -583,22 +583,22 @@ export default function GISMap() {
         <SlopeDisplacementPanel />
       )}
 
-      <div className="absolute top-4 right-4 text-xs font-bold tracking-widest text-stone-700 bg-white/90 px-4 py-2 rounded-xl shadow-lg z-[1000] backdrop-blur-sm border border-white/50 pointer-events-none select-none">
+      <div className="absolute top-4 right-4 text-sm font-mono font-bold tracking-wider text-stone-800 bg-white/95 px-4 py-2 rounded-xl shadow-lg z-[1000] backdrop-blur-sm border border-white/60 pointer-events-none select-none">
         {activeScenario.badge} // {activeScenario.location.district.toUpperCase()}
       </div>
 
       {/* Tactical Incident Status Banner (Top Center - matches Screenshot 2) */}
       {activeGuidedTooltip && !state.isProcessing && (
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 max-w-xl bg-white/95 backdrop-blur-md px-5 py-2.5 rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-stone-200/90 animate-in slide-in-from-top-3 fade-in duration-300 z-[1000] select-none flex items-center gap-3">
-          <div className={`flex items-center gap-1.5 uppercase tracking-wider text-xs font-black shrink-0 ${
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 max-w-2xl bg-white/95 backdrop-blur-md px-6 py-3 rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.14)] border border-stone-200 animate-in slide-in-from-top-3 fade-in duration-300 z-[1000] select-none flex items-center gap-3.5">
+          <div className={`flex items-center gap-2 uppercase tracking-wider text-sm font-black shrink-0 ${
             activeGuidedTooltip.type === 'success' ? 'text-emerald-700' : 'text-red-700'
           }`}>
-            <span className={`w-2 h-2 rounded-full ${activeGuidedTooltip.type === 'success' ? 'bg-emerald-500' : 'bg-red-500 animate-ping'}`} />
-            <div dangerouslySetInnerHTML={{ __html: getMarkerSvgHtml(activeGuidedTooltip.iconType, activeGuidedTooltip.type === 'success' ? '#059669' : '#dc2626', 16) }} />
+            <span className={`w-2.5 h-2.5 rounded-full ${activeGuidedTooltip.type === 'success' ? 'bg-emerald-500' : 'bg-red-500 animate-ping'}`} />
+            <div dangerouslySetInnerHTML={{ __html: getMarkerSvgHtml(activeGuidedTooltip.iconType, activeGuidedTooltip.type === 'success' ? '#059669' : '#dc2626', 18) }} />
             <span>{activeGuidedTooltip.title}</span>
           </div>
-          <div className="h-3.5 w-px bg-stone-300 shrink-0" />
-          <div className="text-xs text-stone-700 font-sans font-medium truncate max-w-md">
+          <div className="h-4 w-px bg-stone-300 shrink-0" />
+          <div className="text-sm text-stone-800 font-sans font-semibold truncate max-w-lg">
             {activeGuidedTooltip.text}
           </div>
         </div>

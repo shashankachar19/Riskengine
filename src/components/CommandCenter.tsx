@@ -37,7 +37,7 @@ export default function CommandCenter() {
           </div>
 
           {/* 3-Column Work Area - Fills Remaining Vertical Space Down to Bottom */}
-          <div className="flex-1 min-h-0 h-[calc(100%-76px)] grid grid-cols-[72px_1fr_420px] gap-3">
+          <div className="flex-1 min-h-0 h-[calc(100%-76px)] grid grid-cols-[72px_1fr_520px] gap-3">
             {/* Left Sidebar (Ultra-Thin Icon Rail) */}
             <div className="h-full bg-white/95 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300 backdrop-blur-xl rounded-2xl border border-white/60 z-20 overflow-visible">
               <ResourcePanel />
