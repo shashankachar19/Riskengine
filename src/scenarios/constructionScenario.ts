@@ -343,7 +343,7 @@ export const constructionScenario: ScenarioConfig = {
       timestamp: '11:22:18',
       level: 'perception',
       source: '[PIEZO-SENSOR 108]',
-      message: 'RAW_DATA: Groundwater surge detected. Hydrostatic pressure spiked to 18.6 bar.',
+      message: 'TELEMETRY_STREAM: Sub-surface groundwater surge detected: 4.2 bar -> 8.5 bar -> 14.1 bar -> 18.6 bar structural breach limit.',
       step: 1,
     },
     {
@@ -351,7 +351,7 @@ export const constructionScenario: ScenarioConfig = {
       timestamp: '11:22:19',
       level: 'risk',
       source: '[Agent: GeoStructural Analyst]',
-      message: 'CRITICAL INGRESS: Slurry seal integrity compromised at -28m depth. 19 crew exposed.',
+      message: 'CRITICAL INGRESS: Hydrostatic pressure reached 18.6 bar at -28m TBM face. 19 crew exposed to water ingress.',
       step: 1,
     },
     {
@@ -359,7 +359,7 @@ export const constructionScenario: ScenarioConfig = {
       timestamp: '11:22:20',
       level: 'command',
       source: '[Agent: Ops Commander]',
-      message: 'Tunnel extraction protocol initiated. Dispatching emergency response via Hosur Corridor.',
+      message: 'Tunnel extraction protocol initiated. Dispatching emergency response via Hosur Corridor for 19 crew.',
       step: 1,
     },
     {
@@ -391,7 +391,7 @@ export const constructionScenario: ScenarioConfig = {
       timestamp: '11:23:45',
       level: 'perception',
       source: '[TRAFFIC INFRA SENSOR 34]',
-      message: 'SURFACE CAVITATION: 6-meter sinkhole collapsed on Hosur Road above water main.',
+      message: 'CAVITY_COLLAPSE: Hosur Road surface pavement breached over ruptured utility main. Void depth: 4.2m.',
       step: 3,
     },
     {
@@ -399,7 +399,7 @@ export const constructionScenario: ScenarioConfig = {
       timestamp: '11:23:46',
       level: 'risk',
       source: '[Agent: GeoStructural Analyst]',
-      message: 'Route Pink-1 severed. Trauma Unit 1 completely halted by surface collapse.',
+      message: 'ROUTE SEVERED: Route Pink-1 blocked by sinkhole. Trauma Unit 1 halted with 35m buffer.',
       step: 3,
     },
     {
@@ -407,7 +407,7 @@ export const constructionScenario: ScenarioConfig = {
       timestamp: '11:23:47',
       level: 'routing',
       source: '[Agent: Route Navigator]',
-      message: 'Primary route invalidated. Calculating subterranean auxiliary extraction vector...',
+      message: 'PLAN INVALIDATED: Road impassable. Proposing dynamic bypass via Bannerghatta emergency access Ramp Bravo.',
       step: 3,
     },
     {
@@ -415,7 +415,7 @@ export const constructionScenario: ScenarioConfig = {
       timestamp: '11:23:52',
       level: 'command',
       source: '[Agent: Ops Commander]',
-      message: 'Human-in-the-Loop bypass authorized. Seizing control of auxiliary access ramp.',
+      message: 'HITL OVERRIDE GRANTED: Project Director authorized bypass. Deploying Rescue Unit 2 via Ramp Bravo.',
       step: 4,
     },
     {
@@ -423,7 +423,7 @@ export const constructionScenario: ScenarioConfig = {
       timestamp: '11:23:53',
       level: 'routing',
       source: '[Agent: Route Navigator]',
-      message: 'Bannerghatta Ramp verified safe. Diverting Tunnel Rescue Unit 2 into auxiliary tunnel.',
+      message: 'Bannerghatta Ramp verified safe. Rescue Unit 2 reached TBM face: 19 workers secured.',
       step: 4,
     },
     {
@@ -439,7 +439,7 @@ export const constructionScenario: ScenarioConfig = {
       timestamp: '11:24:01',
       level: 'system',
       source: '[Agent: System Monitor]',
-      message: 'All 19 subterranean workers safely brought to surface. Zero casualties.',
+      message: 'All 19 subterranean workers safely brought to surface. Site casualty count: 0. Evacuation complete.',
       step: 4,
     },
   ],

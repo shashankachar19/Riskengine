@@ -343,7 +343,7 @@ export const mineScenario: ScenarioConfig = {
       timestamp: '14:04:12',
       level: 'perception',
       source: '[GEO-SENSOR 402]',
-      message: 'RAW_DATA: Slope displacement anomaly > 12mm/hr detected.',
+      message: 'TELEMETRY_STREAM: Progressive bench shear detected: 2mm -> 4mm -> 7mm -> 12mm critical threshold breach.',
       step: 1,
     },
     {
@@ -351,7 +351,7 @@ export const mineScenario: ScenarioConfig = {
       timestamp: '14:04:12',
       level: 'risk',
       source: '[Agent: Risk Analyst]',
-      message: 'CRITICAL HAZARD: Sector 4 instability confirmed. 17 workers in exposure zone.',
+      message: 'CRITICAL HAZARD: Sector 4 bench face displacement reached 12 mm. 17 workers in immediate exposure zone.',
       step: 1,
     },
     {
@@ -359,7 +359,7 @@ export const mineScenario: ScenarioConfig = {
       timestamp: '14:04:13',
       level: 'command',
       source: '[Agent: Ops Commander]',
-      message: 'Evacuation protocol initiated. Generating immediate extraction plan.',
+      message: 'Evacuation protocol initiated. Generating immediate extraction plan for 17 personnel.',
       step: 1,
     },
     {
@@ -391,7 +391,7 @@ export const mineScenario: ScenarioConfig = {
       timestamp: '14:05:42',
       level: 'perception',
       source: '[OBD-SENSOR HT1]',
-      message: 'ERR_CODE_77X: Engine failure detected. Telemetry offline.',
+      message: 'COLLISION_ALERT: Haul Truck 1 rollover on Route Alpha-4 at KM 1.2. 150t chassis blocking carriageway.',
       step: 3,
     },
     {
@@ -399,7 +399,7 @@ export const mineScenario: ScenarioConfig = {
       timestamp: '14:05:43',
       level: 'risk',
       source: '[Agent: Risk Analyst]',
-      message: 'Alpha-4 blocked by Haul Truck 1. Ambulance 1 progress halted.',
+      message: 'ROUTE SEVERED: Route Alpha-4 blocked. Ambulance 1 halted with 40m emergency braking buffer.',
       step: 3,
     },
     {
@@ -407,7 +407,7 @@ export const mineScenario: ScenarioConfig = {
       timestamp: '14:05:43',
       level: 'routing',
       source: '[Agent: Route Navigator]',
-      message: 'Primary plan invalidated. Computing alternative extraction vectors...',
+      message: 'PLAN INVALIDATED: Primary route blocked. Computing dynamic bypass via Route Bravo-2 ramp (1.8 km / 3.4 min).',
       step: 3,
     },
     {
@@ -415,7 +415,7 @@ export const mineScenario: ScenarioConfig = {
       timestamp: '14:05:48',
       level: 'command',
       source: '[Agent: Ops Commander]',
-      message: 'Human-in-the-Loop override granted. Seizing control of dispatch.',
+      message: 'HITL OVERRIDE GRANTED: Safety Officer authorized replan. Diverting rescue fleet to Route Bravo-2 ramp.',
       step: 4,
     },
     {
@@ -423,7 +423,7 @@ export const mineScenario: ScenarioConfig = {
       timestamp: '14:05:49',
       level: 'routing',
       source: '[Agent: Route Navigator]',
-      message: 'Valid bypass found. Redirecting Ambulance 2 via Bravo-2 ramp.',
+      message: 'Ambulance 2 navigating Route Bravo-2 bypass. Reached Sector 4: 17 workers safely secured.',
       step: 4,
     },
     {
@@ -431,7 +431,7 @@ export const mineScenario: ScenarioConfig = {
       timestamp: '14:05:51',
       level: 'resource',
       source: '[Agent: Fleet Dispatcher]',
-      message: 'Ambulance 2 on-site at Sector 4. Medical extraction initiated.',
+      message: 'All 17 exposed personnel extracted. Site casualty count: 0. Evacuation complete.',
       step: 4,
     },
     {

@@ -343,7 +343,7 @@ export const floodScenario: ScenarioConfig = {
       timestamp: '06:41:15',
       level: 'perception',
       source: '[RADAR-GAUGE 09]',
-      message: 'RAW_DATA: Rapid river surge cresting at 4,820 m³/s. GLOF wave detected.',
+      message: 'TELEMETRY_STREAM: Discharge surge cresting: 850 m³/s -> 1,920 m³/s -> 3,400 m³/s -> 4,820 m³/s extreme breach.',
       step: 1,
     },
     {
@@ -351,7 +351,7 @@ export const floodScenario: ScenarioConfig = {
       timestamp: '06:41:16',
       level: 'risk',
       source: '[Agent: Flood Analyst]',
-      message: 'CRITICAL INUNDATION: Sector 4 powerhouse cavern at flood threshold. 24 workers exposed.',
+      message: 'CRITICAL INUNDATION: River discharge reached 4,820 m³/s. 24 engineers trapped at lower turbine cavern.',
       step: 1,
     },
     {
@@ -359,7 +359,7 @@ export const floodScenario: ScenarioConfig = {
       timestamp: '06:41:17',
       level: 'command',
       source: '[Agent: Ops Commander]',
-      message: 'Initiating immediate powerhouse extraction via Route Hydro-1.',
+      message: 'Initiating immediate powerhouse extraction via Route Hydro-1 for 24 engineers.',
       step: 1,
     },
     {
@@ -391,7 +391,7 @@ export const floodScenario: ScenarioConfig = {
       timestamp: '06:42:50',
       level: 'perception',
       source: '[STRUCTURAL SENSOR B02]',
-      message: 'STRUCTURAL COMPROMISE: Chungthang road bridge collapsed under flash torrent.',
+      message: 'STRUCTURAL_COLLAPSE: Chungthang access bridge swept away by 4,820 m³/s hydrodynamic force.',
       step: 3,
     },
     {
@@ -399,7 +399,7 @@ export const floodScenario: ScenarioConfig = {
       timestamp: '06:42:51',
       level: 'risk',
       source: '[Agent: Flood Analyst]',
-      message: 'Route Hydro-1 severed. Ground Medical 1 blocked. River cutting off road.',
+      message: 'ROUTE SEVERED: Route Hydro-1 blocked. Ground Medical 1 halted with 50m flood buffer.',
       step: 3,
     },
     {
@@ -407,7 +407,7 @@ export const floodScenario: ScenarioConfig = {
       timestamp: '06:42:52',
       level: 'routing',
       source: '[Agent: Route Navigator]',
-      message: 'Surface extraction vector dead. Initiating emergency aerial replan...',
+      message: 'PLAN INVALIDATED: Ground routes impassable. Proposing dynamic aerial extraction via Sky-3 hoist corridor.',
       step: 3,
     },
     {
@@ -415,7 +415,7 @@ export const floodScenario: ScenarioConfig = {
       timestamp: '06:42:58',
       level: 'command',
       source: '[Agent: Ops Commander]',
-      message: 'Human-in-the-Loop aerial override authorized. Mobilizing Helicopter Air-1.',
+      message: 'HITL OVERRIDE GRANTED: Site Director authorized aerial replan. Mobilizing Helicopter Air-1.',
       step: 4,
     },
     {
@@ -423,7 +423,7 @@ export const floodScenario: ScenarioConfig = {
       timestamp: '06:42:59',
       level: 'routing',
       source: '[Agent: Route Navigator]',
-      message: 'Vector Sky-3 locked. High-ground ridge approach clear of gorge wind turbulence.',
+      message: 'Vector Sky-3 locked. Winch extraction underway at powerhouse roof: 24 engineers secured.',
       step: 4,
     },
     {
@@ -439,7 +439,7 @@ export const floodScenario: ScenarioConfig = {
       timestamp: '06:43:08',
       level: 'system',
       source: '[Agent: System Monitor]',
-      message: 'All 24 personnel winched to safety. Basin crisis contained.',
+      message: 'All 24 powerhouse engineers winched to safety. Zero casualties. Basin crisis contained.',
       step: 4,
     },
   ],
