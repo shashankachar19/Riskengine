@@ -78,8 +78,8 @@ Upon crisis containment, RiskEngine generates a comprehensive audit report:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/shashankachar19/MinEngine.git
-   cd MinEngine
+   git clone https://github.com/shashankachar19/Riskengine.git
+   cd Riskengine
    ```
 
 2. **Install dependencies**
