@@ -48,15 +48,15 @@ export default function Header() {
     <header className="h-16 flex items-center justify-between px-5 z-40 relative bg-transparent font-sans border-none select-none">
       {/* Left: Logo & Scenario Switcher */}
       <div className="flex items-center gap-3.5">
-        <div className="bg-stone-50 p-2.5 rounded-2xl shadow-sm border border-stone-200/60 flex items-center justify-center">
-          <Shield className="w-5 h-5 text-stone-900" strokeWidth={2} />
+        <div className="p-2 bg-stone-900 rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.18)] border border-stone-800 flex items-center justify-center">
+          <RiskEngineLogo size={26} />
         </div>
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-base font-black tracking-tight leading-none uppercase text-stone-900">
-              MIN<span className="text-emerald-700">ENGINE.</span>
+              RISK<span className="text-emerald-700">ENGINE.</span>
             </h1>
-            <span className="text-[9px] font-black tracking-widest uppercase bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md border border-emerald-200/60">
+            <span className="text-[9px] font-black tracking-widest uppercase bg-stone-100 text-stone-600 px-2 py-0.5 rounded-md border border-stone-200">
               AI CRISIS COMMAND
             </span>
           </div>

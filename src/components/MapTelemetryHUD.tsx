@@ -9,12 +9,7 @@ import {
   Activity,
   Wind,
   ShieldAlert,
-  ChevronDown,
   ChevronUp,
-  Radio,
-  Compass,
-  AlertTriangle,
-  Layers,
 } from 'lucide-react';
 
 // Domain-Specific Specialized Waveform
@@ -116,6 +111,8 @@ export default function MapTelemetryHUD() {
       ? 'construction'
       : 'mine';
 
+  const isIncident = state.step >= 1;
+
   // Periodic micro-fluctuation to simulate live real-time sensor downlink
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -131,7 +128,7 @@ export default function MapTelemetryHUD() {
     const numPart = parseFloat(match[1].replace(/,/g, ''));
     const unitPart = match[2];
 
-    const deltas = [-0.2, 0.1, -0.1, 0.3, 0.0, -0.3];
+    const deltas = [-0.1, 0.1, 0.0, 0.2, -0.1, 0.0];
     const offset = deltas[(jitter + idx) % deltas.length];
     const updated = Math.max(0, numPart + offset);
 
@@ -141,7 +138,7 @@ export default function MapTelemetryHUD() {
     return `${formatted}${unitPart}`;
   };
 
-  // Domain-Specific Theme Config
+  // Domain-Specific Theme Config with dynamic nominal vs crisis state
   const getThemeConfig = () => {
     switch (scenarioType) {
       case 'flood':
@@ -149,26 +146,32 @@ export default function MapTelemetryHUD() {
           headerBg: 'bg-slate-900 border-cyan-800/80',
           headerTitle: 'HYDRO-SURGE // TEESTA-III',
           headerSub: 'SOUTH LHONAK BASIN INUNDATION',
-          beaconColor: 'bg-cyan-400',
+          beaconColor: isIncident ? 'bg-red-400' : 'bg-cyan-400',
           accentText: 'text-cyan-400',
           chipText: 'HYDRO TELEMETRY',
           auxLabel: 'RESERVOIR FREEBOARD',
-          auxValue: '2.7m to Crest (1,425m)',
-          auxSub: 'OVERTOPPING ALERT LEVEL 4',
-          auxColor: 'bg-cyan-950/40 border-cyan-500/30 text-cyan-300',
+          auxStatus: isIncident ? 'CRITICAL' : 'NOMINAL',
+          auxValue: isIncident ? '0.4m to Crest (1,425m)' : '8.5m to Crest (1,425m)',
+          auxSub: isIncident ? 'OVERTOPPING ALERT LEVEL 4' : 'RESERVOIR POOL LEVEL NORMAL',
+          auxColor: isIncident
+            ? 'bg-red-950/40 border-red-500/30 text-red-300'
+            : 'bg-cyan-950/40 border-cyan-500/30 text-cyan-300',
         };
       case 'construction':
         return {
           headerBg: 'bg-zinc-900 border-purple-800/80',
           headerTitle: 'TBM VARADA // BMRCL PINK',
           headerSub: 'SUB-SURFACE CAVITY & SUBSIDENCE',
-          beaconColor: 'bg-purple-400',
+          beaconColor: isIncident ? 'bg-red-400' : 'bg-purple-400',
           accentText: 'text-purple-400',
           chipText: 'TBM TELEMETRY',
           auxLabel: 'TUNNEL DEPTH // INGRESS',
-          auxValue: '-28.4m // 18.6 bar breach',
-          auxSub: 'SURFACE SETTLEMENT: 28.5mm (>15mm)',
-          auxColor: 'bg-purple-950/40 border-purple-500/30 text-purple-300',
+          auxStatus: isIncident ? 'CRITICAL' : 'NOMINAL',
+          auxValue: isIncident ? '-28.4m // 18.6 bar breach' : '-28.4m // 1.8 bar balance',
+          auxSub: isIncident ? 'SURFACE SETTLEMENT: 28.5mm (>15mm)' : 'SURFACE SETTLEMENT: 1.2mm (< 15mm)',
+          auxColor: isIncident
+            ? 'bg-red-950/40 border-red-500/30 text-red-300'
+            : 'bg-purple-950/40 border-purple-500/30 text-purple-300',
         };
       case 'mine':
       default:
@@ -176,13 +179,16 @@ export default function MapTelemetryHUD() {
           headerBg: 'bg-stone-900 border-amber-800/80',
           headerTitle: 'SSR-XT RADAR // BENCH 04',
           headerSub: 'GROUNDPROBE INTERFEROMETRIC',
-          beaconColor: 'bg-amber-400',
+          beaconColor: isIncident ? 'bg-red-400' : 'bg-amber-400',
           accentText: 'text-amber-400',
           chipText: 'RADAR TELEMETRY',
           auxLabel: 'FACTOR OF SAFETY (FoS)',
-          auxValue: '0.84 (Threshold: 1.30)',
-          auxSub: 'BENCH SHEAR SLIP DETECTED',
-          auxColor: 'bg-amber-950/40 border-amber-500/30 text-amber-300',
+          auxStatus: isIncident ? 'CRITICAL' : 'NOMINAL',
+          auxValue: isIncident ? '0.84 (Threshold: 1.30)' : '1.52 (Threshold: 1.30)',
+          auxSub: isIncident ? 'BENCH RADAR SLIP DETECTED' : 'BENCH FACE STABLE // RADAR CREEP NORMAL',
+          auxColor: isIncident
+            ? 'bg-red-950/40 border-red-500/30 text-red-300'
+            : 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300',
         };
     }
   };
@@ -209,6 +215,11 @@ export default function MapTelemetryHUD() {
 
   const status = getThresholdStatus();
 
+  // Pick realistic telemetry based on whether hazard has been injected
+  const currentTelemetry = state.step === 0
+    ? (activeScenario.baselineTelemetry || activeScenario.telemetry)
+    : (activeScenario.crisisTelemetry || activeScenario.telemetry);
+
   return (
     <div className="absolute top-16 left-4 z-[1000] select-none transition-all duration-300">
       {collapsed ? (
@@ -218,25 +229,24 @@ export default function MapTelemetryHUD() {
           className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-white/95 backdrop-blur-md border border-stone-200/90 shadow-lg text-stone-700 hover:text-stone-900 hover:bg-white transition-all cursor-pointer font-mono text-[11px] font-bold"
         >
           <span className={`w-2 h-2 rounded-full ${theme.beaconColor} animate-pulse`} />
-          <span>{theme.chipText} [{activeScenario.telemetry.length} SENSORS]</span>
-          <ChevronDown className="w-3.5 h-3.5 text-stone-400" />
+          <span className="uppercase tracking-wider">{theme.chipText}</span>
+          <span className={`text-[9px] px-1.5 py-0.5 rounded uppercase font-black ${isIncident ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'}`}>
+            {theme.auxStatus}
+          </span>
         </button>
       ) : (
-        // Full Domain-Authentic Tactical HUD Card
-        <div className="w-76 bg-white/95 backdrop-blur-md rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.16)] border border-stone-200/90 overflow-hidden font-mono animate-in fade-in duration-300">
+        // Full Tactical HUD Card
+        <div className="w-80 rounded-2xl bg-white/95 backdrop-blur-xl border border-stone-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.18)] overflow-hidden font-mono text-stone-900 animate-in fade-in zoom-in-95 duration-300">
           {/* Header */}
-          <div className={`px-3.5 py-2.5 ${theme.headerBg} text-stone-100 flex items-center justify-between border-b`}>
+          <div className={`px-4 py-3 border-b flex items-center justify-between ${theme.headerBg} text-white`}>
             <div>
               <div className="flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${theme.beaconColor} opacity-75`} />
-                  <span className={`relative inline-flex rounded-full h-2 w-2 ${theme.beaconColor}`} />
-                </span>
-                <span className={`text-[10px] font-black tracking-widest uppercase ${theme.accentText}`}>
+                <span className={`w-2 h-2 rounded-full ${theme.beaconColor} animate-pulse`} />
+                <span className="text-xs font-black tracking-wider uppercase">
                   {theme.headerTitle}
                 </span>
               </div>
-              <div className="text-[9px] text-stone-400 tracking-wider font-sans mt-0.5 ml-4">
+              <div className="text-[9px] text-stone-400 font-mono tracking-widest mt-0.5">
                 {theme.headerSub}
               </div>
             </div>
@@ -254,8 +264,8 @@ export default function MapTelemetryHUD() {
             <div className={`p-2 rounded-xl border text-[10px] font-bold ${theme.auxColor}`}>
               <div className="flex items-center justify-between mb-0.5">
                 <span className="tracking-wider uppercase text-[9px] opacity-80">{theme.auxLabel}</span>
-                <span className="font-black text-red-600 animate-pulse text-[10px] uppercase">
-                  {state.step >= 1 ? 'CRITICAL' : 'NOMINAL'}
+                <span className={`font-black text-[10px] uppercase ${isIncident ? 'text-red-500 animate-pulse' : 'text-emerald-400'}`}>
+                  {theme.auxStatus}
                 </span>
               </div>
               <div className="text-xs font-black tracking-tight">{theme.auxValue}</div>
@@ -265,12 +275,12 @@ export default function MapTelemetryHUD() {
 
           {/* Scenario Telemetry Readings List */}
           <div className="p-3 space-y-2 bg-white/70">
-            {activeScenario.telemetry.map((t, idx) => {
+            {currentTelemetry.map((t, idx) => {
               const isAlert =
                 t.status === 'elevated' ||
                 t.status === 'critical' ||
                 t.status === 'saturated';
-              const strokeColor = isAlert ? '#dc2626' : '#059669';
+              const strokeColor = isAlert ? '#dc2626' : '#10b981';
               const liveVal = getLiveReading(t.value, idx);
 
               return (
@@ -281,22 +291,22 @@ export default function MapTelemetryHUD() {
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-1.5 text-[10px] font-bold text-stone-600 truncate">
                       {t.iconType === 'displacement' && (
-                        <TrendingDown className="w-3 h-3 text-red-600 animate-pulse shrink-0" />
+                        <TrendingDown className={`w-3 h-3 shrink-0 ${isAlert ? 'text-red-600 animate-pulse' : 'text-emerald-600'}`} />
                       )}
                       {t.iconType === 'piezometer' && (
-                        <Droplet className="w-3 h-3 text-blue-500 shrink-0" />
+                        <Droplet className={`w-3 h-3 shrink-0 ${isAlert ? 'text-blue-500 animate-pulse' : 'text-blue-500'}`} />
                       )}
                       {t.iconType === 'vibration' && (
-                        <Zap className="w-3 h-3 text-amber-500 shrink-0" />
+                        <Zap className={`w-3 h-3 shrink-0 ${isAlert ? 'text-amber-500 animate-pulse' : 'text-amber-500'}`} />
                       )}
                       {t.iconType === 'discharge' && (
-                        <Waves className="w-3 h-3 text-cyan-600 animate-pulse shrink-0" />
+                        <Waves className={`w-3 h-3 shrink-0 ${isAlert ? 'text-cyan-600 animate-pulse' : 'text-cyan-600'}`} />
                       )}
                       {t.iconType === 'hydrostatic' && (
                         <Gauge className="w-3 h-3 text-purple-600 shrink-0" />
                       )}
                       {t.iconType === 'seismic' && (
-                        <Activity className="w-3 h-3 text-red-600 shrink-0" />
+                        <Activity className={`w-3 h-3 shrink-0 ${isAlert ? 'text-red-600 animate-pulse' : 'text-emerald-600'}`} />
                       )}
                       {t.iconType === 'wind' && (
                         <Wind className="w-3 h-3 text-stone-500 shrink-0" />
@@ -334,10 +344,11 @@ export default function MapTelemetryHUD() {
                     />
                   </div>
 
-                  <div className="w-full h-1 bg-stone-200/80 rounded-full mt-1.5 overflow-hidden">
+                  {/* Linear Progress Bar */}
+                  <div className="w-full h-1 bg-stone-200/60 rounded-full mt-1.5 overflow-hidden">
                     <div
                       className={`h-full rounded-full transition-all duration-500 ${
-                        isAlert ? 'bg-red-500' : 'bg-emerald-500'
+                        isAlert ? 'bg-red-600' : 'bg-emerald-500'
                       }`}
                       style={{ width: `${t.percentage}%` }}
                     />
@@ -347,14 +358,11 @@ export default function MapTelemetryHUD() {
             })}
           </div>
 
-          {/* Operational Status Footer */}
-          <div className="px-3 py-2 bg-stone-50 border-t border-stone-200/80">
-            <div
-              className={`text-[9px] font-bold px-2 py-1 rounded-lg border flex items-center justify-center gap-1.5 text-center ${status.color}`}
-            >
-              <Radio className="w-3 h-3 shrink-0" />
-              <span className="truncate">{status.text}</span>
-            </div>
+          {/* Footer Status Pill */}
+          <div className="px-3 py-2 bg-stone-50 border-t border-stone-200/60 flex items-center justify-between">
+            <span className={`text-[9px] font-black tracking-wider uppercase px-2 py-0.5 rounded-full border ${status.color}`}>
+              {status.text}
+            </span>
           </div>
         </div>
       )}
