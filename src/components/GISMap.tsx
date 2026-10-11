@@ -1,13 +1,71 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSimulation } from '../store/SimContext';
 import { getMarkerSvgHtml } from './icons/SvgIcons';
-import MapTelemetryHUD from './MapTelemetryHUD';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 function timeAgo(minutesAgo: number): string {
   const d = new Date(Date.now() - minutesAgo * 60000);
   return d.toLocaleTimeString('en-GB', { hour12: false });
+}
+
+function SlopeDisplacementPanel() {
+  const { activeScenario } = useSimulation();
+  const [, setTick] = useState(0);
+
+  useEffect(() => {
+    const iv = setInterval(() => setTick((t) => t + 1), 1000);
+    return () => clearInterval(iv);
+  }, []);
+
+  const panel = activeScenario.map.sensorPanel;
+  const title = panel?.title || 'Slope Displacement';
+  const sensorId = panel?.sensorId || 'GEO-SENSOR 402 — LIVE FEED';
+  const readings = panel?.readings || [
+    { offsetMin: 6, value: '2 mm', pct: '15%', color: 'bg-emerald-400', textColor: 'text-emerald-600' },
+    { offsetMin: 4, value: '4 mm', pct: '30%', color: 'bg-yellow-400', textColor: 'text-yellow-600' },
+    { offsetMin: 2, value: '7 mm', pct: '55%', color: 'bg-orange-400', textColor: 'text-orange-600' },
+    { offsetMin: 0, value: '12 mm', pct: '85%', color: 'bg-red-500 animate-pulse', textColor: 'text-red-600' },
+  ];
+  const footer = panel?.footer || 'Threshold exceeded — Evacuation triggered';
+
+  return (
+    <div className="absolute bottom-20 left-4 w-72 bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.18)] border border-stone-200 z-[1000] pointer-events-none animate-in slide-in-from-left-4 fade-in duration-700 overflow-hidden font-mono">
+      <div className="px-5 py-3 bg-red-50/90 border-b border-red-100 flex items-center justify-between">
+        <span className="text-xs font-black tracking-widest text-red-700 uppercase flex items-center gap-1.5">
+          <span>📡</span>
+          <span>{title}</span>
+        </span>
+        <span className="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.6)]" />
+      </div>
+      <div className="px-5 py-4 font-sans">
+        <div className="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-3">
+          {sensorId.toUpperCase()}
+        </div>
+        <div className="space-y-2.5">
+          {readings.map((r, i) => (
+            <div key={i} className="flex items-center justify-between">
+              <span className="text-sm font-mono font-bold text-stone-500">
+                {timeAgo(r.offsetMin)}
+              </span>
+              <div className="flex items-center gap-2.5">
+                <div className="w-16 bg-stone-100 rounded-full h-2 overflow-hidden">
+                  <div className={`${r.color} h-2 rounded-full`} style={{ width: r.pct }} />
+                </div>
+                <span className={`text-sm font-mono font-black ${r.textColor} w-16 text-right`}>
+                  {r.value}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 pt-3 border-t border-stone-100 text-[11px] font-black text-red-600 uppercase tracking-wider flex items-center gap-2">
+          <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse shrink-0" />
+          <span>{footer.toUpperCase()}</span>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 // Helper: Interpolate route for smooth animation
@@ -492,16 +550,18 @@ export default function GISMap() {
         SYS.COORD // {activeScenario.location.lat.toFixed(4)}°N  {activeScenario.location.lng.toFixed(4)}°E
       </div>
 
-      {/* Tactical Telemetry HUD directly on the map (as shown in user reference) */}
-      <MapTelemetryHUD />
+      {/* ── LIVE SENSOR FEED (Appears on step >= 1 matching Screenshot 2 & PPT) ── */}
+      {state.step >= 1 && !state.isProcessing && (
+        <SlopeDisplacementPanel />
+      )}
 
       <div className="absolute top-4 right-4 text-xs font-bold tracking-widest text-stone-700 bg-white/90 px-4 py-2 rounded-xl shadow-lg z-[1000] backdrop-blur-sm border border-white/50 pointer-events-none select-none">
         {activeScenario.badge} // {activeScenario.location.district.toUpperCase()}
       </div>
 
-      {/* Tactical Incident Status Banner (Top Center - never obstructs routes or markers) */}
+      {/* Tactical Incident Status Banner (Top Center - matches Screenshot 2) */}
       {activeGuidedTooltip && !state.isProcessing && (
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 max-w-lg bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-stone-200/90 animate-in slide-in-from-top-3 fade-in duration-300 z-[1000] select-none flex items-center gap-3">
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 max-w-xl bg-white/95 backdrop-blur-md px-5 py-2.5 rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-stone-200/90 animate-in slide-in-from-top-3 fade-in duration-300 z-[1000] select-none flex items-center gap-3">
           <div className={`flex items-center gap-1.5 uppercase tracking-wider text-xs font-black shrink-0 ${
             activeGuidedTooltip.type === 'success' ? 'text-emerald-700' : 'text-red-700'
           }`}>
@@ -509,7 +569,7 @@ export default function GISMap() {
             <div dangerouslySetInnerHTML={{ __html: getMarkerSvgHtml(activeGuidedTooltip.iconType, activeGuidedTooltip.type === 'success' ? '#059669' : '#dc2626', 16) }} />
             <span>{activeGuidedTooltip.title}</span>
           </div>
-          <div className="h-4 w-px bg-stone-200 shrink-0" />
+          <div className="h-3.5 w-px bg-stone-300 shrink-0" />
           <div className="text-xs text-stone-700 font-sans font-medium truncate max-w-md">
             {activeGuidedTooltip.text}
           </div>
