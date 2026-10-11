@@ -1,66 +1,94 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSimulation } from '../store/SimContext';
 import { getMarkerSvgHtml } from './icons/SvgIcons';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-function timeAgo(minutesAgo: number): string {
-  const d = new Date(Date.now() - minutesAgo * 60000);
-  return d.toLocaleTimeString('en-GB', { hour12: false });
-}
-
 function SlopeDisplacementPanel() {
-  const { activeScenario } = useSimulation();
-  const [, setTick] = useState(0);
-
-  useEffect(() => {
-    const iv = setInterval(() => setTick((t) => t + 1), 1000);
-    return () => clearInterval(iv);
-  }, []);
+  const { activeScenario, state } = useSimulation();
 
   const panel = activeScenario.map.sensorPanel;
   const title = panel?.title || 'Slope Displacement';
   const sensorId = panel?.sensorId || 'GEO-SENSOR 402 — LIVE FEED';
   const readings = panel?.readings || [
-    { offsetMin: 6, value: '2 mm', pct: '15%', color: 'bg-emerald-400', textColor: 'text-emerald-600' },
-    { offsetMin: 4, value: '4 mm', pct: '30%', color: 'bg-yellow-400', textColor: 'text-yellow-600' },
-    { offsetMin: 2, value: '7 mm', pct: '55%', color: 'bg-orange-400', textColor: 'text-orange-600' },
+    { offsetMin: 6, value: '2 mm', pct: '15%', color: 'bg-emerald-500', textColor: 'text-emerald-600' },
+    { offsetMin: 4, value: '4 mm', pct: '30%', color: 'bg-amber-500', textColor: 'text-amber-600' },
+    { offsetMin: 2, value: '7 mm', pct: '55%', color: 'bg-orange-500', textColor: 'text-orange-600' },
     { offsetMin: 0, value: '12 mm', pct: '85%', color: 'bg-red-500 animate-pulse', textColor: 'text-red-600' },
   ];
   const footer = panel?.footer || 'Threshold exceeded — Evacuation triggered';
 
+  // Synchronize telemetry packet timestamp with the incident log for 100% forensic realism
+  const incidentDate = useMemo(() => {
+    const perceptionLog = state.visibleLogs.find(
+      (l) => l.step === 1 && (l.level === 'perception' || l.source?.includes('SENSOR') || l.source?.includes('GAUGE'))
+    );
+    if (perceptionLog?.timestamp) {
+      const parts = perceptionLog.timestamp.split(':').map(Number);
+      if (parts.length === 3 && !parts.some(isNaN)) {
+        const d = new Date();
+        d.setHours(parts[0], parts[1], parts[2], 0);
+        return d;
+      }
+    }
+    return new Date();
+  }, [state.step, state.visibleLogs]);
+
+  // Format realistic historical telemetry polling timestamps (-25s, -12s, +4s, 0s)
+  const getRealisticTime = (offsetMin: number, idx: number) => {
+    const staggers = [-25, -12, 4, 0];
+    const jitter = staggers[idx] ?? 0;
+    const d = new Date(incidentDate.getTime() - (offsetMin * 60 - jitter) * 1000);
+    return d.toLocaleTimeString('en-GB', { hour12: false });
+  };
+
   return (
-    <div className="absolute bottom-20 left-4 w-72 bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.18)] border border-stone-200 z-[1000] pointer-events-none animate-in slide-in-from-left-4 fade-in duration-700 overflow-hidden font-mono">
-      <div className="px-5 py-3 bg-red-50/90 border-b border-red-100 flex items-center justify-between">
-        <span className="text-xs font-black tracking-widest text-red-700 uppercase flex items-center gap-1.5">
+    <div className="absolute bottom-28 left-4 w-[19rem] bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.18)] border border-stone-200/90 z-[1000] pointer-events-none animate-in slide-in-from-left-4 fade-in duration-500 overflow-hidden font-mono select-none">
+      {/* Header */}
+      <div className="px-4 py-2.5 bg-red-50/90 border-b border-red-100 flex items-center justify-between">
+        <span className="text-[11px] font-black tracking-widest text-red-700 uppercase flex items-center gap-1.5">
           <span>📡</span>
           <span>{title}</span>
         </span>
         <span className="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.6)]" />
       </div>
-      <div className="px-5 py-4 font-sans">
-        <div className="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-3">
-          {sensorId.toUpperCase()}
+
+      {/* Body */}
+      <div className="px-4 py-3.5 font-sans">
+        <div className="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-3 flex items-center justify-between">
+          <span>{sensorId.toUpperCase()}</span>
+          <span className="text-[9px] font-mono text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 font-bold">
+            SYNCED
+          </span>
         </div>
+
         <div className="space-y-2.5">
           {readings.map((r, i) => (
-            <div key={i} className="flex items-center justify-between">
-              <span className="text-sm font-mono font-bold text-stone-500">
-                {timeAgo(r.offsetMin)}
+            <div key={i} className="flex items-center justify-between text-xs">
+              <span className="font-mono font-bold text-stone-500 tracking-tight">
+                {getRealisticTime(r.offsetMin ?? 0, i)}
               </span>
-              <div className="flex items-center gap-2.5">
-                <div className="w-16 bg-stone-100 rounded-full h-2 overflow-hidden">
-                  <div className={`${r.color} h-2 rounded-full`} style={{ width: r.pct }} />
+
+              <div className="flex items-center gap-2">
+                {/* Visual Bar Gauge with clean background and border */}
+                <div className="w-20 bg-stone-100 rounded-full h-2 overflow-hidden border border-stone-200/60 p-[1px]">
+                  <div
+                    className={`${r.color} h-full rounded-full transition-all duration-500`}
+                    style={{ width: r.pct }}
+                  />
                 </div>
-                <span className={`text-sm font-mono font-black ${r.textColor} w-16 text-right`}>
+
+                <span className={`font-mono font-black ${r.textColor} w-16 text-right`}>
                   {r.value}
                 </span>
               </div>
             </div>
           ))}
         </div>
-        <div className="mt-4 pt-3 border-t border-stone-100 text-[11px] font-black text-red-600 uppercase tracking-wider flex items-center gap-2">
-          <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse shrink-0" />
+
+        {/* Footer Alert */}
+        <div className="mt-3.5 pt-2.5 border-t border-stone-100 text-[10px] font-black text-red-600 uppercase tracking-wider flex items-start gap-2 leading-snug">
+          <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse shrink-0 mt-0.5" />
           <span>{footer.toUpperCase()}</span>
         </div>
       </div>

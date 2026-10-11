@@ -46,9 +46,9 @@ export default function HoverBottomNav() {
   }
 
   return (
-    <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-5 px-6 py-3.5 rounded-[2rem] border border-stone-200/80 backdrop-blur-xl bg-white/95 shadow-[0_20px_50px_rgba(8,112,184,0.1)] hover:shadow-[0_24px_60px_rgba(8,112,184,0.15)] transition-all duration-300 w-[92%] max-w-4xl select-none">
-      <div className="flex items-center gap-4 flex-1 min-w-0">
-        <div className="shrink-0 p-2.5 rounded-[1.25rem] bg-stone-50 border border-stone-100 shadow-sm">
+    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-4 px-5 py-3 rounded-2xl border border-stone-200/90 backdrop-blur-xl bg-white/95 shadow-[0_16px_40px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.16)] transition-all duration-300 w-[90%] max-w-3xl select-none">
+      <div className="flex items-center gap-3.5 flex-1 min-w-0">
+        <div className="shrink-0 p-2 rounded-xl bg-stone-50 border border-stone-100 shadow-sm">
           {icon}
         </div>
         <div className={`font-sans text-xs tracking-wide truncate ${textClass}`}>

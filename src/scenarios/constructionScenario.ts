@@ -154,9 +154,9 @@ export const constructionScenario: ScenarioConfig = {
       title: 'Groundwater Pressure',
       sensorId: 'PIEZO-SENSOR 108 — Sub-surface',
       readings: [
-        { offsetMin: 6, value: '4.2 bar', pct: '20%', color: 'bg-emerald-400', textColor: 'text-emerald-600' },
-        { offsetMin: 4, value: '8.5 bar', pct: '45%', color: 'bg-yellow-400', textColor: 'text-yellow-600' },
-        { offsetMin: 2, value: '14.1 bar', pct: '70%', color: 'bg-orange-400', textColor: 'text-orange-600' },
+        { offsetMin: 6, value: '4.2 bar', pct: '20%', color: 'bg-emerald-500', textColor: 'text-emerald-600' },
+        { offsetMin: 4, value: '8.5 bar', pct: '45%', color: 'bg-amber-500', textColor: 'text-amber-600' },
+        { offsetMin: 2, value: '14.1 bar', pct: '70%', color: 'bg-orange-500', textColor: 'text-orange-600' },
         { offsetMin: 0, value: '18.6 bar', pct: '95%', color: 'bg-red-500 animate-pulse', textColor: 'text-red-600' },
       ],
       footer: 'Structural breach limit reached — Ingress alert',

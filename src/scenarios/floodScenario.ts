@@ -154,9 +154,9 @@ export const floodScenario: ScenarioConfig = {
       title: 'River Surge Telemetry',
       sensorId: 'RADAR-GAUGE 09 — Teesta Hydro',
       readings: [
-        { offsetMin: 6, value: '850 m³/s', pct: '20%', color: 'bg-emerald-400', textColor: 'text-emerald-600' },
-        { offsetMin: 4, value: '1,920 m³/s', pct: '45%', color: 'bg-yellow-400', textColor: 'text-yellow-600' },
-        { offsetMin: 2, value: '3,400 m³/s', pct: '75%', color: 'bg-orange-400', textColor: 'text-orange-600' },
+        { offsetMin: 6, value: '850 m³/s', pct: '20%', color: 'bg-emerald-500', textColor: 'text-emerald-600' },
+        { offsetMin: 4, value: '1,920 m³/s', pct: '45%', color: 'bg-amber-500', textColor: 'text-amber-600' },
+        { offsetMin: 2, value: '3,400 m³/s', pct: '75%', color: 'bg-orange-500', textColor: 'text-orange-600' },
         { offsetMin: 0, value: '4,820 m³/s', pct: '98%', color: 'bg-red-500 animate-pulse', textColor: 'text-red-600' },
       ],
       footer: 'Flash flood crest exceeded — Powerhouse inundation risk',

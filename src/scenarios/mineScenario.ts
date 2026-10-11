@@ -154,9 +154,9 @@ export const mineScenario: ScenarioConfig = {
       title: 'Slope Displacement',
       sensorId: 'GEO-SENSOR 402 — Live Feed',
       readings: [
-        { offsetMin: 6, value: '2 mm', pct: '15%', color: 'bg-emerald-400', textColor: 'text-emerald-600' },
-        { offsetMin: 4, value: '4 mm', pct: '30%', color: 'bg-yellow-400', textColor: 'text-yellow-600' },
-        { offsetMin: 2, value: '7 mm', pct: '55%', color: 'bg-orange-400', textColor: 'text-orange-600' },
+        { offsetMin: 6, value: '2 mm', pct: '15%', color: 'bg-emerald-500', textColor: 'text-emerald-600' },
+        { offsetMin: 4, value: '4 mm', pct: '30%', color: 'bg-amber-500', textColor: 'text-amber-600' },
+        { offsetMin: 2, value: '7 mm', pct: '55%', color: 'bg-orange-500', textColor: 'text-orange-600' },
         { offsetMin: 0, value: '12 mm', pct: '85%', color: 'bg-red-500 animate-pulse', textColor: 'text-red-600' },
       ],
       footer: 'Threshold exceeded — Evacuation triggered',
