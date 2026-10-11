@@ -2,27 +2,41 @@ import { useEffect, useRef } from 'react';
 import { useSimulation } from '../store/SimContext';
 import { Terminal } from 'lucide-react';
 
+function EqualizerVisualizer({ active }: { active: boolean }) {
+  return (
+    <div className="flex items-end gap-1 h-3.5 px-1 py-0.5">
+      <span className={`w-1 rounded-full bg-emerald-500 ${active ? 'animate-[eq-bar-1_0.8s_ease-in-out_infinite]' : 'h-1.5'}`} />
+      <span className={`w-1 rounded-full bg-emerald-600 ${active ? 'animate-[eq-bar-2_0.6s_ease-in-out_infinite]' : 'h-2.5'}`} />
+      <span className={`w-1 rounded-full bg-emerald-500 ${active ? 'animate-[eq-bar-3_0.9s_ease-in-out_infinite]' : 'h-2'}`} />
+      <span className={`w-1 rounded-full bg-emerald-600 ${active ? 'animate-[eq-bar-4_0.7s_ease-in-out_infinite]' : 'h-3'}`} />
+    </div>
+  );
+}
+
 export default function CommandLog() {
   const { visibleLogs, state } = useSimulation();
-  const logEndRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    logEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
   }, [visibleLogs]);
 
   return (
     <div className="h-full flex flex-col font-mono bg-transparent text-stone-600 min-h-0">
-      <div className="flex-none px-5 py-4 border-b-2 border-stone-200 flex items-center justify-between bg-stone-50 z-10">
-        <h2 className="text-base font-black tracking-widest text-stone-900 flex items-center gap-2.5 uppercase">
-          <Terminal className="w-5 h-5 text-emerald-700" />
-          AI Engine Logs
+      <div className="flex-none px-5 py-3.5 border-b border-stone-200/80 flex items-center justify-between bg-stone-50/80 z-10">
+        <h2 className="text-xs font-black tracking-widest text-stone-900 flex items-center gap-2 uppercase">
+          <Terminal className="w-4 h-4 text-emerald-700" />
+          <span>AI Engine Logs</span>
+          <EqualizerVisualizer active={state.isProcessing} />
         </h2>
-        <span className="text-sm text-stone-500 font-bold tracking-widest">
+        <span className="text-[10px] text-stone-500 font-bold tracking-widest uppercase">
           {state.isProcessing ? 'PROCESSING...' : `${visibleLogs.length} EVENTS`}
         </span>
       </div>
 
-      <div className="flex-1 overflow-y-auto min-h-0 relative p-4 custom-scrollbar bg-white">
+      <div ref={containerRef} className="flex-1 overflow-y-auto min-h-0 relative p-4 custom-scrollbar bg-white">
         <div className="space-y-3">
           {visibleLogs.map(log => {
             let textColor = 'text-stone-600';
@@ -67,19 +81,18 @@ export default function CommandLog() {
             );
           })}
           
-          {/* Processing Indicator */}
+          {/* High-Tech Animated Processing Indicator */}
           {state.isProcessing && (
-             <div className="leading-relaxed flex gap-3 animate-pulse p-4">
-                <span className="text-stone-400 shrink-0 mt-1 text-xs font-bold">--:--:--</span>
-                <div className="flex-1">
-                   <div className="text-emerald-600 text-[15px] font-mono typing-indicator font-bold">
-                     {state.processingMessage || 'AI Core is evaluating...'}
+             <div className="p-4 rounded-xl bg-emerald-50/80 border border-emerald-200/80 shadow-sm flex items-center gap-3 animate-in fade-in duration-300">
+                <EqualizerVisualizer active={true} />
+                <div className="flex-1 min-w-0">
+                   <div className="text-emerald-800 text-xs font-mono font-bold flex items-center gap-2">
+                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+                     <span className="truncate">{state.processingMessage || 'AI Swarm Coordinator evaluating options...'}</span>
                    </div>
                 </div>
              </div>
           )}
-
-          <div ref={logEndRef} />
         </div>
       </div>
     </div>

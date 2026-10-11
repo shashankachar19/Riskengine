@@ -53,7 +53,7 @@ export const SIMULATION_LOGS: LogEntry[] = [
     timestamp: '14:00:00',
     level: 'system',
     source: '[Agent: System Monitor]',
-    message: 'minEngine core systems initialized. All subsystems nominal.',
+    message: 'RiskEngine core systems initialized. All subsystems nominal.',
     step: 0
   },
   {

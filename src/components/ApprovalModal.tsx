@@ -1,46 +1,79 @@
 import { useSimulation } from '../store/SimContext';
-import { AlertTriangle, ArrowRight, ShieldAlert } from 'lucide-react';
+import { ArrowRight, ShieldAlert, X } from 'lucide-react';
 
 export default function ApprovalModal() {
-  const { state, approveAndResolve, closeApprovalModal } = useSimulation();
+  const { state, activeScenario, approveAndResolve, closeApprovalModal } = useSimulation();
 
   if (!state.showApprovalModal) return null;
 
   return (
-    <div className="absolute top-1/2 left-[35%] -translate-x-1/2 -translate-y-1/2 z-[100] w-[450px]">
-      <div className="bg-white border-2 border-stone-800 shadow-[12px_12px_0_rgba(28,25,23,0.15)] font-sans text-stone-900">
-        
+    <div className="fixed inset-0 z-[200] flex items-center justify-center font-sans select-none">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-stone-900/40 backdrop-blur-sm transition-opacity duration-300"
+        onClick={closeApprovalModal}
+      />
+
+      {/* Modal Card */}
+      <div className="relative z-10 w-full max-w-lg mx-4 bg-white rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.25)] border border-stone-200 overflow-hidden animate-in zoom-in-95 fade-in duration-300">
         {/* Header */}
-        <div className="bg-[#F4F1EA] px-6 py-5 border-b-2 border-stone-800 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <ShieldAlert className="w-6 h-6 text-red-700" />
-            <h2 className="text-base font-black tracking-tight uppercase">Action Required</h2>
+        <div className="bg-stone-50 px-6 py-4 border-b border-stone-200/80 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-red-100 text-red-700 rounded-xl">
+              <ShieldAlert className="w-5 h-5" />
+            </div>
+            <div>
+              <h2 className="text-sm font-black tracking-tight uppercase text-stone-900">
+                Human-in-the-Loop Override
+              </h2>
+              <span className="text-[10px] font-mono font-bold text-stone-400 uppercase tracking-wider">
+                AUTHORIZATION PROTOCOL // HITL-409
+              </span>
+            </div>
           </div>
-          <button onClick={closeApprovalModal} className="text-stone-500 hover:text-stone-900 font-bold p-2 transition-colors">✕</button>
+          <button
+            onClick={closeApprovalModal}
+            className="text-stone-400 hover:text-stone-800 p-1.5 rounded-lg transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Content */}
-        <div className="p-6 bg-white">
-          <div className="border-2 border-red-600 bg-red-50 p-5 mb-2">
-            <h3 className="text-sm font-black text-red-700 uppercase tracking-tight mb-3">Dynamic Replan Triggered</h3>
-            <p className="text-xs text-stone-700 font-mono leading-relaxed">
-              Route Alpha-4 is blocked. AI proposes re-routing all assets via Bravo-2. 
-              Requires Human-in-the-Loop authorization.
+        <div className="p-6 bg-white space-y-4">
+          <div className="border border-red-200 bg-red-50/70 p-5 rounded-2xl">
+            <h3 className="text-xs font-black text-red-700 uppercase tracking-widest mb-2 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
+              {activeScenario.planPanel.replanTitle}
+            </h3>
+            <p className="text-xs text-stone-700 font-sans font-medium leading-relaxed">
+              {activeScenario.planPanel.replanDescription}
             </p>
+          </div>
+
+          <div className="text-xs text-stone-500 font-sans leading-relaxed">
+            By authorizing, you approve the AI coordinator to override the initial route, seize dispatch telemetry, and deploy backup responders via the alternate vector.
           </div>
         </div>
 
         {/* Footer */}
-        <div className="bg-[#F4F1EA] px-6 py-5 border-t-2 border-stone-800">
+        <div className="bg-stone-50 px-6 py-4 border-t border-stone-200/80 flex items-center justify-end gap-3">
+          <button
+            onClick={closeApprovalModal}
+            className="px-5 py-2.5 rounded-xl text-stone-600 hover:text-stone-900 text-xs font-mono font-bold tracking-wider uppercase transition-colors"
+          >
+            Cancel
+          </button>
+
           <button
             onClick={() => {
               closeApprovalModal();
               approveAndResolve();
             }}
-            className="w-full py-4 bg-emerald-700 hover:bg-emerald-800 text-white font-black text-xs tracking-widest uppercase flex items-center justify-center gap-3 border-2 border-stone-900 shadow-[4px_4px_0_rgba(28,25,23,0.1)] active:translate-y-[2px] active:shadow-none transition-all"
+            className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-mono font-black text-xs tracking-widest uppercase flex items-center gap-2 rounded-xl shadow-[0_4px_15px_rgba(16,185,129,0.3)] hover:-translate-y-0.5 active:translate-y-0 transition-all"
           >
-            [ AUTHORIZE OVERRIDE ]
-            <ArrowRight className="w-5 h-5 ml-1" />
+            <span>[ AUTHORIZE REPLAN ]</span>
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </div>
