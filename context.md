@@ -1,7 +1,7 @@
-# minEngine --- GATEWAYS 2026 Hackathon Context
+# RiskEngine --- GATEWAYS 2026 Hackathon Context
 
 > **Purpose of this file:** This document is the complete working
-> context for the minEngine project during GATEWAYS 2026. It is intended
+> context for the RiskEngine project during GATEWAYS 2026. It is intended
 > to be shared with teammates and pasted into another ChatGPT session so
 > development can continue without losing the reasoning, decisions,
 > architecture, demo flow, product positioning, constraints, or future
@@ -79,14 +79,14 @@ Important practical constraint:
 
 ## Team Name
 
-**minEngine**
+**RiskEngine**
 
 The name represents the mining/high-risk-site context combined with an
 intelligent operational engine.
 
 Recommended public branding:
 
-# minEngine
+# RiskEngine
 
 ### Sense. Reason. Coordinate. Respond.
 
@@ -121,11 +121,11 @@ deployment; - connecting all components into the final MVP.
 
 # 4. Final Product Vision
 
-## minEngine
+## RiskEngine
 
 **AI Crisis Command & Digital Twin for High-Risk Sites**
 
-minEngine is an AI-powered crisis-command layer for high-risk
+RiskEngine is an AI-powered crisis-command layer for high-risk
 environments, initially focused on open-cast mining/quarry safety.
 
 The system creates a live operational digital twin of a site and
@@ -226,7 +226,7 @@ product.
 
 The differentiation is:
 
-> Existing safety infrastructure can detect/monitor hazards. minEngine
+> Existing safety infrastructure can detect/monitor hazards. RiskEngine
 > is the AI decision and coordination layer that turns those signals
 > into an adaptive emergency response plan.
 
@@ -251,9 +251,9 @@ Relevant observations from current DGMS material include:
 
 Important positioning:
 
-Do NOT claim: - minEngine is certified for mine safety; - minEngine
-predicts mine collapses with certainty; - minEngine replaces
-geotechnical experts; - minEngine prevents accidents.
+Do NOT claim: - RiskEngine is certified for mine safety; - RiskEngine
+predicts mine collapses with certainty; - RiskEngine replaces
+geotechnical experts; - RiskEngine prevents accidents.
 
 Instead say:
 
@@ -262,7 +262,7 @@ Instead say:
 
 And:
 
-> **minEngine is an AI command layer that helps safety personnel
+> **RiskEngine is an AI command layer that helps safety personnel
 > understand changing conditions and coordinate a response.**
 
 For production, the platform would consume validated/certified
@@ -302,14 +302,14 @@ with human verification.
 The obvious solution to the problem is an emergency dashboard that shows
 alerts.
 
-minEngine goes further.
+RiskEngine goes further.
 
 ### Obvious system
 
 Alert → Human checks → Human calls people → Human finds resources →
 Human coordinates → Human updates plan
 
-### minEngine
+### RiskEngine
 
 Signal → Situation understanding → Risk assessment → Resource assessment
 → Response plan → Human approval → Execution → Continuous reassessment →
@@ -390,7 +390,7 @@ The system uses simulated worker/CCTV/GPS information and determines:
 
 ------------------------------------------------------------------------
 
-# 11. Existing Workflow vs minEngine
+# 11. Existing Workflow vs RiskEngine
 
 The purpose of this comparison is not to claim that all existing mine
 operations are identical.
@@ -407,7 +407,7 @@ Potential problem: - information may be distributed across different
 systems/people; - response coordination can require several manual
 steps; - changing conditions can make the original plan outdated.
 
-## minEngine concept
+## RiskEngine concept
 
 Sensor alert → signal fusion → risk assessment → personnel exposure
 estimation → resource assessment → response recommendation → human
@@ -425,7 +425,7 @@ deployment.
 
 # 12. Response Plan --- First Incident
 
-minEngine recommends:
+RiskEngine recommends:
 
 -   evacuate Zone B3;
 -   identify 17 exposed personnel;
@@ -941,7 +941,7 @@ The operator remains responsible for critical actions.
 
 Important positioning sentence:
 
-> **"minEngine does not replace the safety officer --- it gives the
+> **"RiskEngine does not replace the safety officer --- it gives the
 > safety officer a real-time AI command layer."**
 
 ------------------------------------------------------------------------
@@ -957,7 +957,7 @@ Therefore the application must teach the evaluator how to use it.
 
 Opening modal:
 
-### Welcome to minEngine
+### Welcome to RiskEngine
 
 **AI Crisis Command for High-Risk Sites**
 
@@ -976,14 +976,14 @@ Button:
 
 After Start Mission:
 
-### Why minEngine?
+### Why RiskEngine?
 
 > Emergencies don't happen one at a time.
 
 > When a hazard appears, responders need to know: **What happened? Who
 > is at risk? What resources are available? What should happen next?**
 
-> minEngine continuously reassesses the situation as conditions change.
+> RiskEngine continuously reassesses the situation as conditions change.
 
 Button:
 
@@ -1008,7 +1008,7 @@ Example:
 ### Step 1 --- Detect a Hazard
 
 > Simulate abnormal ground movement in Zone B3. This will trigger
-> minEngine's risk assessment.
+> RiskEngine's risk assessment.
 
 Button: **Simulate Slope Movement**
 
@@ -1020,7 +1020,7 @@ Then show the system reacting.
 
 Tooltip:
 
-> minEngine has identified the people and resources affected. Review the
+> RiskEngine has identified the people and resources affected. Review the
 > recommended response.
 
 Show:
@@ -1046,7 +1046,7 @@ Button:
 Tooltip:
 
 > Emergencies don't stay static. Introduce a second incident and see how
-> minEngine adapts.
+> RiskEngine adapts.
 
 Button:
 
@@ -1073,7 +1073,7 @@ The evaluator should experience:
 
 ### 1. Understand
 
-What is minEngine?
+What is RiskEngine?
 
 ### 2. Observe
 
@@ -1140,7 +1140,7 @@ Recommended layout:
 
 ``` text
 ┌──────────────────────────────────────────────────────────┐
-│ minEngine              COMMAND CENTER       🟢 NORMAL   │
+│ RiskEngine              COMMAND CENTER       🟢 NORMAL   │
 ├──────────────────────────────────────────────────────────┤
 │                                                          │
 │                  DIGITAL TWIN                            │
@@ -1309,7 +1309,7 @@ Example:
 
 4 minutes 20 seconds
 
-### minEngine simulated workflow
+### RiskEngine simulated workflow
 
 45 seconds
 
@@ -1331,7 +1331,7 @@ The broader, defensible claim is:
 
 # 39. Business Vision
 
-minEngine should not be positioned as "just a mining app."
+RiskEngine should not be positioned as "just a mining app."
 
 Mining is the initial vertical.
 
@@ -1509,7 +1509,7 @@ Then move immediately to the technical solution.
 > continuously deciding what should happen next as the situation
 > changes."**
 
-> **"That's why we built minEngine --- an AI crisis-command engine for
+> **"That's why we built RiskEngine --- an AI crisis-command engine for
 > high-risk environments."**
 
 Then demonstrate the scenario.
@@ -1518,7 +1518,7 @@ Then demonstrate the scenario.
 
 # 46. Recommended Killer Line
 
-> **"minEngine does not replace the safety officer --- it gives the
+> **"RiskEngine does not replace the safety officer --- it gives the
 > safety officer a real-time AI command layer."**
 
 This should appear in the pitch or final slide.
@@ -1529,7 +1529,7 @@ This should appear in the pitch or final slide.
 
 Short version:
 
-> **minEngine creates a live operational digital twin of a high-risk
+> **RiskEngine creates a live operational digital twin of a high-risk
 > site and uses specialised AI agents to understand incidents,
 > coordinate limited emergency resources, and dynamically replan the
 > response when conditions change --- while keeping humans in control of
@@ -1539,10 +1539,10 @@ Short version:
 
 # 48. Recommended Short Demo Explanation
 
-> "First, minEngine detects accelerating slope movement. It identifies
+> "First, RiskEngine detects accelerating slope movement. It identifies
 > 17 potentially exposed workers and recommends evacuation. The safety
 > officer approves the response. Then a truck accident occurs and the
-> active ambulance becomes unavailable. minEngine invalidates the old
+> active ambulance becomes unavailable. RiskEngine invalidates the old
 > plan, reassesses the available resources, calculates an alternative
 > route, reallocates the remaining ambulance and generates a new
 > response plan with an explanation."
@@ -1559,7 +1559,7 @@ Emergencies change faster than manual coordination.
 
 Mining safety, slope monitoring, vehicle incidents, limited resources.
 
-## Slide 3 --- minEngine
+## Slide 3 --- RiskEngine
 
 AI crisis-command layer.
 
@@ -1647,7 +1647,7 @@ A smaller reliable system is better than a huge unstable system.
 
 Whenever deciding whether to add a feature, ask:
 
-> **Does this help minEngine sense, understand, decide, coordinate,
+> **Does this help RiskEngine sense, understand, decide, coordinate,
 > verify, or replan during a crisis?**
 
 If no: - defer it.
@@ -1664,7 +1664,7 @@ explicitly decides to change them:
 
 -   Domain 4 is locked.
 -   Problem statement is Crisis Command.
--   Product name is minEngine.
+-   Product name is RiskEngine.
 -   Initial vertical is mining/quarry safety.
 -   Digital twin is the operational context, not the entire product.
 -   Dynamic multi-agent replanning is the hero capability.
@@ -1684,7 +1684,7 @@ explicitly decides to change them:
 
 # 55. One-Sentence Project Definition
 
-> **minEngine is an AI crisis-command layer that uses a digital twin and
+> **RiskEngine is an AI crisis-command layer that uses a digital twin and
 > specialised agents to turn real-time safety signals into coordinated,
 > explainable and dynamically adaptive emergency response plans.**
 
@@ -1706,7 +1706,7 @@ Alternative full tagline:
 
 # 57. Instruction for Any Future AI Assistant Working on This Project
 
-When helping with minEngine:
+When helping with RiskEngine:
 
 1.  Preserve the core product vision unless the team explicitly asks for
     a redesign.
@@ -1735,7 +1735,7 @@ When helping with minEngine:
 
 # 58. Final Project Summary
 
-## minEngine
+## RiskEngine
 
 **Domain:** Public Safety & Emergency Response
 
@@ -1772,6 +1772,7 @@ mining and other high-risk industries.
 **Key message:** Earlier detection plus faster coordination can create
 more time for evacuation and response.
 
-**Key differentiator:** minEngine does not merely detect incidents. It
+**Key differentiator:** RiskEngine does not merely detect incidents. It
 continuously re-evaluates the operational situation and adapts the
 response plan when conditions change.
+

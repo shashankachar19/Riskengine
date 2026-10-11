@@ -1,4 +1,4 @@
-# minEngine — Round 2 Master Implementation Spec (`prompt.md`)
+# RiskEngine — Round 2 Master Implementation Spec (`prompt.md`)
 
 > **Role:** Principal Frontend Engineer & Interactive 3D/GIS UI Specialist  
 > **Target Platform:** Single-Page React + TypeScript + Tailwind CSS Application  
@@ -35,7 +35,7 @@
 ### B. Navigation & Control Structures
 3. **Clean Overhead Header (`Header.tsx`):**
    - **Strict Rule:** REMOVE the 3 status summary boxes above the mission control area.
-   - Header contains ONLY: `minEngine` logo, live system digital clock, and a glowing `SITE OPERATIONAL` indicator.
+   - Header contains ONLY: `RiskEngine` logo, live system digital clock, and a glowing `SITE OPERATIONAL` indicator.
 4. **Hover-Activated Bottom Navigation Dock (`HoverBottomNav.tsx`):**
    - Auto-hiding bottom dock containing the step triggers.
    - Default state: Hidden below the screen viewport (only a subtle glowing top border line is visible).
@@ -91,7 +91,7 @@
 ### State 4: `CRISIS_RESOLVED` (Triggered on Approval)
 - **Visual:** 2D map renders glowing neon green re-route path via Bravo-2.
 - **Notification:** Toast `"CRISIS CONTAINED — 0 Casualties Recorded"`.
-- **Modal:** Auto-launches `ImpactReportModal.tsx` comparing Manual (12m / $1.2M) vs. minEngine AI (5.1s / $15k) with top-right 'X' close button and Reset option.
+- **Modal:** Auto-launches `ImpactReportModal.tsx` comparing Manual (12m / $1.2M) vs. RiskEngine AI (5.1s / $15k) with top-right 'X' close button and Reset option.
 
 ---
 
