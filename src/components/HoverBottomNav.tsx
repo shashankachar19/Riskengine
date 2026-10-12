@@ -51,7 +51,7 @@ export default function HoverBottomNav() {
         <div className="shrink-0 p-2.5 rounded-xl bg-stone-50 border border-stone-100 shadow-sm">
           {icon}
         </div>
-        <div className={`font-sans text-sm md:text-base tracking-wide truncate ${textClass}`}>
+        <div className={`font-sans text-xs sm:text-sm md:text-base tracking-wide leading-tight line-clamp-2 ${textClass}`}>
           {state.isProcessing ? (state.processingMessage || 'AI Processing...') : currentStepConfig.navText}
         </div>
       </div>

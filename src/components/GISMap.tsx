@@ -3,9 +3,11 @@ import { useSimulation } from '../store/SimContext';
 import { getMarkerSvgHtml } from './icons/SvgIcons';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { Minimize2, Maximize2 } from 'lucide-react';
 
 function SlopeDisplacementPanel() {
   const { activeScenario, state } = useSimulation();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const panel = activeScenario.map.sensorPanel;
   const title = panel?.title || 'Slope Displacement';
@@ -17,6 +19,7 @@ function SlopeDisplacementPanel() {
     { offsetMin: 0, value: '12 mm', pct: '85%', color: 'bg-red-500 animate-pulse', textColor: 'text-red-600' },
   ];
   const footer = panel?.footer || 'Threshold exceeded — Evacuation triggered';
+  const latestReading = readings[readings.length - 1]?.value || '';
 
   // Synchronize telemetry packet timestamp with the incident log for 100% forensic realism
   const incidentDate = useMemo(() => {
@@ -42,15 +45,69 @@ function SlopeDisplacementPanel() {
     return d.toLocaleTimeString('en-GB', { hour12: false });
   };
 
+  if (isCollapsed) {
+    return (
+      <div className="absolute bottom-28 left-4 z-[1000] pointer-events-auto select-none animate-in fade-in zoom-in-95 duration-200">
+        <div
+          onClick={() => setIsCollapsed(false)}
+          className="flex items-center gap-3 px-3.5 py-2.5 bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.18)] border border-stone-200/90 hover:border-red-300 hover:shadow-[0_20px_50px_rgba(239,68,68,0.2)] transition-all cursor-pointer group"
+          title="Click to expand telemetry panel"
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-sm">📡</span>
+            <span className="text-xs font-black tracking-wider text-red-700 uppercase">
+              {title}
+            </span>
+            <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.6)]" />
+          </div>
+
+          <div className="flex items-center gap-1.5 bg-red-50 px-2 py-0.5 rounded-lg border border-red-200 text-xs font-mono font-black text-red-700 shadow-sm">
+            <span>{latestReading}</span>
+          </div>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsCollapsed(false);
+            }}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-600 hover:bg-red-700 text-white text-[10px] font-mono font-black tracking-wider uppercase transition-all duration-200 shadow-sm active:scale-95 cursor-pointer"
+            title="Expand full telemetry panel"
+          >
+            <Maximize2 className="w-3 h-3 text-white" />
+            <span>EXPAND</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="absolute bottom-28 left-4 w-[21.5rem] bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.18)] border border-stone-200/90 z-[1000] pointer-events-none animate-in slide-in-from-left-4 fade-in duration-500 overflow-hidden font-mono select-none">
-      {/* Header */}
-      <div className="px-4 py-3 bg-red-50/90 border-b border-red-100 flex items-center justify-between">
-        <span className="text-xs font-black tracking-widest text-red-700 uppercase flex items-center gap-2">
-          <span className="text-sm">📡</span>
-          <span>{title}</span>
-        </span>
-        <span className="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.6)]" />
+    <div className="absolute bottom-28 left-4 w-[21.5rem] bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.18)] border border-stone-200/90 z-[1000] pointer-events-auto animate-in slide-in-from-left-4 fade-in duration-300 overflow-hidden font-mono select-none">
+      {/* Header with Shrink Button */}
+      <div
+        onClick={() => setIsCollapsed(true)}
+        className="px-4 py-3 bg-red-50/90 border-b border-red-100 flex items-center justify-between cursor-pointer hover:bg-red-100/60 transition-colors"
+        title="Click to shrink panel"
+      >
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-sm shrink-0">📡</span>
+          <span className="text-xs font-black tracking-widest text-red-700 uppercase truncate">
+            {title}
+          </span>
+          <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse shrink-0 shadow-[0_0_8px_rgba(239,68,68,0.6)]" />
+        </div>
+
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsCollapsed(true);
+          }}
+          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/90 hover:bg-white text-red-700 border border-red-200 shadow-sm text-[10px] font-mono font-black tracking-wider uppercase transition-all duration-200 active:scale-95 shrink-0 cursor-pointer"
+          title="Shrink panel to view map and rerouting"
+        >
+          <Minimize2 className="w-3 h-3 text-red-600" />
+          <span>SHRINK</span>
+        </button>
       </div>
 
       {/* Body */}
@@ -579,7 +636,7 @@ export default function GISMap() {
       </div>
 
       {/* ── LIVE SENSOR FEED (Appears on step >= 1 matching Screenshot 2 & PPT) ── */}
-      {state.step >= 1 && !state.isProcessing && (
+      {state.step >= 1 && (
         <SlopeDisplacementPanel />
       )}
 
