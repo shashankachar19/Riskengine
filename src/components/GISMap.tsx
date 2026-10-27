@@ -646,8 +646,8 @@ export default function GISMap() {
 
       {/* Tactical Incident Status Banner (Top Center - matches Screenshot 2) */}
       {activeGuidedTooltip && !state.isProcessing && (
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 max-w-2xl bg-white/95 backdrop-blur-md px-6 py-3 rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.14)] border border-stone-200 animate-in slide-in-from-top-3 fade-in duration-300 z-[1000] select-none flex items-center gap-3.5">
-          <div className={`flex items-center gap-2 uppercase tracking-wider text-sm font-black shrink-0 ${
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 max-w-fit bg-white/95 backdrop-blur-md px-5 py-2.5 rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.14)] border border-stone-200 animate-in slide-in-from-top-3 fade-in duration-300 z-[1000] select-none flex items-center gap-3">
+          <div className={`flex items-center gap-2 uppercase tracking-wider text-xs md:text-sm font-black shrink-0 ${
             activeGuidedTooltip.type === 'success' ? 'text-emerald-700' : 'text-red-700'
           }`}>
             <span className={`w-2.5 h-2.5 rounded-full ${activeGuidedTooltip.type === 'success' ? 'bg-emerald-500' : 'bg-red-500 animate-ping'}`} />
@@ -655,7 +655,7 @@ export default function GISMap() {
             <span>{activeGuidedTooltip.title}</span>
           </div>
           <div className="h-4 w-px bg-stone-300 shrink-0" />
-          <div className="text-sm text-stone-800 font-sans font-semibold truncate max-w-lg">
+          <div className="text-xs md:text-sm text-stone-800 font-sans font-semibold">
             {activeGuidedTooltip.text}
           </div>
         </div>

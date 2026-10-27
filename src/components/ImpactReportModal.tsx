@@ -130,85 +130,85 @@ export default function ImpactReportModal() {
       <div className="absolute inset-0 bg-stone-900/50 backdrop-blur-sm" onClick={closeImpactReport} />
 
       {/* Modal Card */}
-      <div className="relative z-10 w-full max-w-4xl mx-4 bg-white border border-stone-200 rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.25)] animate-in zoom-in-95 fade-in duration-300 overflow-hidden max-h-[90vh] flex flex-col">
+      <div className="relative z-10 w-full max-w-4xl mx-4 bg-white border border-stone-200 rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.25)] animate-in zoom-in-95 fade-in duration-300 overflow-hidden max-h-[92vh] flex flex-col">
         {/* Header */}
-        <div className="px-8 py-6 bg-stone-50 border-b border-stone-200/80 flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-4">
-            <div className="p-2.5 bg-stone-900 rounded-2xl border border-stone-800 shadow-md flex items-center justify-center">
-              <RiskEngineLogo size={32} />
+        <div className="px-7 py-4 bg-stone-50 border-b border-stone-200/80 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-3.5">
+            <div className="p-2 bg-stone-900 rounded-2xl border border-stone-800 shadow-md flex items-center justify-center">
+              <RiskEngineLogo size={28} />
             </div>
             <div>
               <div className="flex items-center gap-2.5">
-                <h2 className="text-2xl font-black tracking-tight text-stone-900 uppercase">
+                <h2 className="text-xl font-black tracking-tight text-stone-900 uppercase">
                   Incident Impact Report
                 </h2>
-                <span className="text-xs font-mono font-bold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full uppercase">
+                <span className="text-[11px] font-mono font-bold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full uppercase">
                   {activeScenario.badge}
                 </span>
               </div>
-              <p className="text-sm text-stone-500 font-mono tracking-wide mt-1">
+              <p className="text-xs text-stone-500 font-mono tracking-wide mt-0.5">
                 RiskEngine // {activeScenario.name} ({activeScenario.location.district})
               </p>
             </div>
           </div>
 
           {/* Action Export Buttons */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <button
               onClick={handleDownloadPDF}
-              className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-mono font-black tracking-wider uppercase rounded-xl flex items-center gap-2 transition-colors shadow-sm"
+              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-mono font-black tracking-wider uppercase rounded-xl flex items-center gap-2 transition-colors shadow-sm"
             >
-              <Download className="w-4 h-4" />
+              <Download className="w-3.5 h-3.5" />
               <span>Print Audit PDF</span>
             </button>
 
             <button
               onClick={closeImpactReport}
-              className="p-2 text-stone-400 hover:text-stone-800 rounded-xl transition-colors ml-1"
+              className="p-1.5 text-stone-400 hover:text-stone-800 rounded-xl transition-colors ml-1"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
         </div>
 
-        {/* Scrollable Content */}
-        <div className="p-8 overflow-y-auto custom-scrollbar space-y-6">
+        {/* Content */}
+        <div className="px-7 py-4 overflow-y-auto custom-scrollbar space-y-3.5">
           {/* Key Stat Cards */}
-          <div className="grid grid-cols-3 gap-4">
-            <div className="bg-emerald-50/70 border border-emerald-200 p-5 rounded-2xl text-center">
-              <span className="text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest block mb-1">
+          <div className="grid grid-cols-3 gap-3.5">
+            <div className="bg-emerald-50/70 border border-emerald-200 p-3.5 rounded-2xl text-center">
+              <span className="text-[11px] font-mono font-bold text-emerald-700 uppercase tracking-widest block mb-0.5">
                 Coordination Cycle
               </span>
-              <div className="text-4xl font-mono font-black text-emerald-800">{coordCycleTime}</div>
-              <span className="text-xs text-emerald-700 font-bold mt-1 block">Autonomous multi-agent eval</span>
+              <div className="text-3xl font-mono font-black text-emerald-800">{coordCycleTime}</div>
+              <span className="text-[11px] text-emerald-700 font-bold mt-0.5 block">Autonomous multi-agent eval</span>
             </div>
 
-            <div className="bg-blue-50/70 border border-blue-200 p-5 rounded-2xl text-center">
-              <span className="text-xs font-mono font-bold text-blue-700 uppercase tracking-widest block mb-1">
+            <div className="bg-blue-50/70 border border-blue-200 p-3.5 rounded-2xl text-center">
+              <span className="text-[11px] font-mono font-bold text-blue-700 uppercase tracking-widest block mb-0.5">
                 Dynamic Replanning
               </span>
-              <div className="text-4xl font-mono font-black text-blue-800">{replanningTime}</div>
-              <span className="text-xs text-blue-700 font-bold mt-1 block">Alternate route calculated</span>
+              <div className="text-3xl font-mono font-black text-blue-800">{replanningTime}</div>
+              <span className="text-[11px] text-blue-700 font-bold mt-0.5 block">Alternate route calculated</span>
             </div>
 
-            <div className="bg-stone-50 border border-stone-200 p-5 rounded-2xl text-center">
-              <span className="text-xs font-mono font-bold text-stone-600 uppercase tracking-widest block mb-1">
+            <div className="bg-stone-50 border border-stone-200 p-3.5 rounded-2xl text-center">
+              <span className="text-[11px] font-mono font-bold text-stone-600 uppercase tracking-widest block mb-0.5">
                 Personnel Accountability
               </span>
-              <div className="text-4xl font-mono font-black text-stone-900">{totalWorkers}/{totalWorkers}</div>
-              <span className="text-xs text-emerald-700 font-bold mt-1 block">100% Safe (0 Casualties)</span>
+              <div className="text-3xl font-mono font-black text-stone-900">{totalWorkers}/{totalWorkers}</div>
+              <span className="text-[11px] text-emerald-700 font-bold mt-0.5 block">100% Safe (0 Casualties)</span>
             </div>
           </div>
 
           {/* Detailed Parameter Table */}
           <div className="border border-stone-200 rounded-2xl overflow-hidden">
-            <div className="bg-stone-50 px-6 py-3.5 border-b border-stone-200 text-xs font-mono font-black text-stone-600 uppercase tracking-wider flex items-center justify-between">
+            <div className="bg-stone-50 px-5 py-2.5 border-b border-stone-200 text-xs font-mono font-black text-stone-600 uppercase tracking-wider flex items-center justify-between">
               <span>Metric Analysis</span>
               <span>Observed Simulation Result</span>
             </div>
             <div className="divide-y divide-stone-100">
               {metrics.map((m, idx) => (
-                <div key={idx} className="px-6 py-4 flex items-center justify-between hover:bg-stone-50/60 transition-colors">
+                <div key={idx} className="px-5 py-2.5 flex items-center justify-between hover:bg-stone-50/60 transition-colors">
                   <div>
                     <div className="text-sm font-bold text-stone-900">{m.label}</div>
                     <div className="text-xs text-stone-400 font-mono mt-0.5">{m.simType}</div>
@@ -222,13 +222,13 @@ export default function ImpactReportModal() {
           </div>
 
           {/* Demonstration Notice */}
-          <div className="text-xs text-stone-500 text-center font-mono py-2 border-t border-stone-100">
+          <div className="text-[11px] text-stone-500 text-center font-mono py-1 border-t border-stone-100">
             RiskEngine Autonomous Command Platform — Dynamic Incident Orchestration for High-Risk Operations
           </div>
         </div>
 
         {/* Footer */}
-        <div className="px-8 py-4 bg-stone-50 border-t border-stone-200/80 flex items-center justify-between shrink-0">
+        <div className="px-7 py-3 bg-stone-50 border-t border-stone-200/80 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
             <button
               onClick={() => {
