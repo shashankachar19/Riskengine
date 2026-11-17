@@ -23,3 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 old_map*.tsx
+
+# Internal notes and prototype drafts
+context.md
+nec.md
+liquid-glass-button.tsx
+liquid-glass-card.tsx
+RiskEngine_1.pptx
+resume_summary.md
